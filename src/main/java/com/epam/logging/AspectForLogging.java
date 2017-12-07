@@ -1,4 +1,4 @@
-package logging;
+package com.epam.logging;
 
 public class AspectForLogging {
 }
