@@ -1,4 +1,4 @@
-package entity;
+package com.epam.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "user", schema = "public", catalog = "Evernote")

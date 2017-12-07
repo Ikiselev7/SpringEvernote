@@ -1,4 +1,4 @@
-package entity;
+package com.epam.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
