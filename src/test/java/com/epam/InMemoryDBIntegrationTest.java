@@ -8,6 +8,7 @@ import com.epam.entity.MarkEntity;
 import com.epam.entity.NoteBookEntity;
 import com.epam.entity.NoteEntity;
 import com.epam.entity.UserEntity;
+import com.epam.init.DBInitializer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,27 +27,29 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = TestJpaConfig.class)
 @Transactional
 public class InMemoryDBIntegrationTest {
     @Autowired
     private UserDao userRepository;
-
     @Autowired
     private NoteBookDao noteBookRepository;
-
     @Autowired
     private NoteDao noteRepository;
-
     @Autowired
     private MarkDao markRepository;
 
-    @Before
-    public void before(){
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        context.register(TestJpaConfig.class);
-        context.refresh();
-    }
+//    @Before
+//    public void before(){
+//        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+//        context.register(TestJpaConfig.class);
+//        context.refresh();
+//        userRepository = context.getBean(UserDao.class);
+//        noteBookRepository = context.getBean(NoteBookDao.class);
+//        noteRepository = context.getBean(NoteDao.class);
+//        markRepository = context.getBean(MarkDao.class);
+//    }
 
     @Test
     public void givenUser_whenSave_thenGetOk() {
