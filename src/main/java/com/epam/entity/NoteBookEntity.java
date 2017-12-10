@@ -6,19 +6,20 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "note_book", schema = "public", catalog = "Evernote")
+@Table(name = "note_book")
 @Getter
 @Setter
 @ToString(exclude = {"notes", "user"})
 @EqualsAndHashCode(exclude = {"notes", "user"})
 public class NoteBookEntity {
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Basic
@@ -27,7 +28,8 @@ public class NoteBookEntity {
 
     @Basic
     @Column(name = "create_date", nullable = false)
-    private Date createDate;
+    @Convert(converter = TimestampPersistenceConverter.class)
+    private LocalDateTime createDate;
 
     @ManyToOne
     @JoinColumn(name = "id_user", referencedColumnName = "id", nullable = false)

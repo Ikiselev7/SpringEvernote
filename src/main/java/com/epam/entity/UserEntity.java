@@ -17,15 +17,15 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "user", schema = "public", catalog = "Evernote")
+@Table(name = "user")
 @Getter
 @Setter
 @ToString(exclude = {"noteBooks"})
 @EqualsAndHashCode(exclude = {"noteBooks"})
 public class UserEntity {
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Basic

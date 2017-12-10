@@ -1,34 +1,36 @@
-CREATE TABLE "user"
+CREATE TABLE user
 (
-  id         BIGINT NOT NULL PRIMARY KEY,
+  id         BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   first_name TEXT   NOT NULL,
   last_name  TEXT   NOT NULL,
   email      TEXT   NOT NULL,
   password   TEXT   NOT NULL
 );
 
+
+
 CREATE TABLE note_book
 (
-  id          BIGINT    NOT NULL PRIMARY KEY,
+  id          BIGINT    NOT NULL PRIMARY KEY AUTO_INCREMENT,
   name        TEXT      NOT NULL,
   create_date TIMESTAMP NOT NULL,
-  id_user     BIGINT    NOT NULL,
-  CONSTRAINT note_book_user_id_fk FOREIGN KEY (id_user) REFERENCES "user" (id)
+  id_user     BIGINT,
+  CONSTRAINT note_book_user_id_fk FOREIGN KEY (id_user) REFERENCES user (id)
 );
 
 CREATE TABLE note
 (
-  id           BIGINT    NOT NULL PRIMARY KEY,
+  id           BIGINT    NOT NULL PRIMARY KEY AUTO_INCREMENT,
   title        TEXT      NOT NULL,
   description  TEXT,
   create_date  TIMESTAMP NOT NULL,
-  id_note_book BIGINT    NOT NULL,
+  id_note_book BIGINT,
   CONSTRAINT note_note_book_id_fk FOREIGN KEY (id_note_book) REFERENCES note_book (id)
 );
 
 CREATE TABLE mark
 (
-  id   BIGINT NOT NULL PRIMARY KEY,
+  id   BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   name TEXT   NOT NULL
 );
 

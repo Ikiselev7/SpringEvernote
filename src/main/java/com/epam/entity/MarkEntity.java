@@ -16,15 +16,15 @@ import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
-@Table(name = "mark", schema = "public", catalog = "Evernote")
+@Table(name = "mark")
 @Getter
 @Setter
 @ToString(exclude = {"notes"})
 @EqualsAndHashCode(exclude = {"notes"})
 public class MarkEntity {
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Basic

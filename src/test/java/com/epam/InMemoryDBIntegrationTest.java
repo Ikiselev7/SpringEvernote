@@ -8,21 +8,14 @@ import com.epam.entity.MarkEntity;
 import com.epam.entity.NoteBookEntity;
 import com.epam.entity.NoteEntity;
 import com.epam.entity.UserEntity;
-import com.epam.init.DBInitializer;
-import org.junit.Before;
+import com.epam.util.TestEntityBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-import java.util.Date;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
@@ -39,17 +32,26 @@ public class InMemoryDBIntegrationTest {
     private NoteDao noteRepository;
     @Autowired
     private MarkDao markRepository;
+    @Autowired
+    private TestEntityBuilder testEntityBuilder;
 
-//    @Before
-//    public void before(){
-//        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-//        context.register(TestJpaConfig.class);
-//        context.refresh();
-//        userRepository = context.getBean(UserDao.class);
-//        noteBookRepository = context.getBean(NoteBookDao.class);
-//        noteRepository = context.getBean(NoteDao.class);
-//        markRepository = context.getBean(MarkDao.class);
-//    }
+    @Test
+    public void saveFullUserTest() throws Exception {
+        UserEntity userEntity = testEntityBuilder.getUserEntity();
+        UserEntity save = userRepository.save(userEntity);
+
+        System.out.println(save);
+        save.getNoteBooks().forEach(System.out::println);
+        save.getNoteBooks().stream()
+                .flatMap(noteBookEntity -> noteBookEntity.getNotes().stream())
+                .forEach(System.out::println);
+        save.getNoteBooks().stream()
+                .flatMap(noteBookEntity -> noteBookEntity.getNotes().stream())
+                .flatMap(noteEntity -> noteEntity.getMarks().stream())
+                .forEach(System.out::println);
+
+
+    }
 
     @Test
     public void givenUser_whenSave_thenGetOk() {
@@ -75,7 +77,7 @@ public class InMemoryDBIntegrationTest {
         NoteBookEntity noteBook1 = new NoteBookEntity();
         noteBook1.setId(1);
         noteBook1.setName("Note book 1");
-        noteBook1.setCreateDate(new Date());
+        //noteBook1.setCreateDate(new Date());
 
         noteBookRepository.save(noteBook1);
 
@@ -91,7 +93,7 @@ public class InMemoryDBIntegrationTest {
         note1.setId(1);
         note1.setTitle("Note 1");
         note1.setDescription("Some description");
-        note1.setCreateDate(new Date());
+        //note1.setCreateDate(new Date());
 
         noteRepository.save(note1);
 

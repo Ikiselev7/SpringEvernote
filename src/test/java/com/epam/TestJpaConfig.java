@@ -1,6 +1,7 @@
 package com.epam;
 
 import com.epam.dao.MarkDao;
+import com.epam.util.TestEntityBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,7 +24,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.epam.dao")
-@ComponentScan(basePackageClasses = MarkDao.class)
+@ComponentScan(basePackageClasses = {MarkDao.class, TestEntityBuilder.class})
 @PropertySource("persistences.yaml")
 @EnableTransactionManagement
 public class TestJpaConfig {
@@ -36,14 +37,8 @@ public class TestJpaConfig {
         EmbeddedDatabase database = builder
                 .setType(EmbeddedDatabaseType.H2)
                 .addScript("schema.sql")
+                .addScript("inserts.sql")
                 .build();
-
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-//        dataSource.setUrl(env.getProperty("jdbc.url"));
-//        dataSource.setUsername(env.getProperty("jdbc.user"));
-//        dataSource.setPassword(env.getProperty("jdbc.pass"));
-
         return database;
     }
 
@@ -53,26 +48,13 @@ public class TestJpaConfig {
         em.setDataSource(dataSource());
         em.setPackagesToScan("com.epam.entity");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        //em.setJpaProperties(additionalProperties());
         return em;
     }
 
     @Bean
-    JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+    public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
-    }
-
-    final Properties additionalProperties() {
-        final Properties hibernateProperties = new Properties();
-
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.hibernate.ddl-auto"));
-        hibernateProperties.setProperty("hibernate.dialect", env.getProperty("spring.jpa.database-platform"));
-        hibernateProperties.setProperty("hibernate.show_sql", env.getProperty("spring.jpa.properties.hibernate.show_sql"));
-       // hibernateProperties.setProperty("hibernate.cache.use_second_level_cache", env.getProperty("hibernate.cache.use_second_level_cache"));
-       // hibernateProperties.setProperty("hibernate.cache.use_query_cache", env.getProperty("hibernate.cache.use_query_cache"));
-
-        return hibernateProperties;
     }
 }
