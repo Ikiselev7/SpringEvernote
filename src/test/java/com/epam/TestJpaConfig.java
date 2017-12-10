@@ -35,6 +35,7 @@ public class TestJpaConfig {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         EmbeddedDatabase database = builder
                 .setType(EmbeddedDatabaseType.H2)
+
                 .build();
 
 //        DriverManagerDataSource dataSource = new DriverManagerDataSource();
