@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -34,6 +35,6 @@ public class MarkEntity {
     private String name;
 
     @ManyToMany(mappedBy = "marks", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<NoteEntity> notes;
+    private Set<NoteEntity> notes = new HashSet<>();
 
 }

@@ -1,15 +1,11 @@
 package com.epam;
 
-import com.epam.dao.MarkDao;
 import com.epam.util.TestEntityBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -20,16 +16,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.epam.dao")
-@ComponentScan(basePackageClasses = {MarkDao.class, TestEntityBuilder.class})
+@ComponentScan(basePackageClasses = TestEntityBuilder.class)
 @PropertySource("persistences.yaml")
 @EnableTransactionManagement
 public class TestJpaConfig {
-    @Autowired
-    private Environment env;
 
     @Bean
     public DataSource dataSource() {

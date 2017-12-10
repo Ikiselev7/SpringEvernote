@@ -34,7 +34,7 @@ public class NoteBookDaoTest {
 
     @Test
     public void saveTest() throws Exception {
-        NoteBookEntity noteBookEntity = testEntityBuilder.getNoteBookEntyty();
+        NoteBookEntity noteBookEntity = testEntityBuilder.initNoteBook();
 
         Optional<UserEntity> userEntity = userDao.findById(1L);
         noteBookEntity.setUser(userEntity.get());
@@ -85,9 +85,4 @@ public class NoteBookDaoTest {
 
         assertTrue(!deleted.isPresent());
     }
-
-
-
-
-
 }

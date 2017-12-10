@@ -40,49 +40,18 @@ public class TestEntityBuilder {
         return userEntity;
     }
 
-    /**
-     * return full Notebook instance.
-     *
-     * @return notebookEntity
-     */
-    public NoteBookEntity getNoteBookEntyty() {
-        return userEntity.getNoteBooks().stream()
-                .findFirst()
-                .get();
-    }
-
-    /**
-     * return full note instance.
-     *
-     * @return note instance
-     */
-    public NoteEntity getNoteEntity() {
-        return userEntity.getNoteBooks().stream()
-                .flatMap(noteBookEntity -> noteBookEntity.getNotes().stream())
-                .findFirst()
-                .get();
-    }
-
-    /**
-     * Return full mark entity.
-     *
-     * @return markEntity
-     */
-    public MarkEntity MarkEntity() {
-        return userEntity.getNoteBooks().stream()
-                .flatMap(noteBookEntity -> noteBookEntity.getNotes().stream())
-                .flatMap(noteEntity -> noteEntity.getMarks().stream())
-                .findFirst()
-                .get();
-    }
-
     private Set<NoteBookEntity> initNoteBookSet() {
         Set<NoteBookEntity> noteBookEntities = new HashSet<>();
         noteBookEntities.add(initNoteBook());
         return noteBookEntities;
     }
 
-    private NoteBookEntity initNoteBook() {
+    /**
+     * return full Notebook instance.
+     *
+     * @return notebookEntity
+     */
+    public NoteBookEntity initNoteBook() {
         NoteBookEntity noteBookEntity = new NoteBookEntity();
 
         noteBookEntity.setId(0L);
@@ -104,7 +73,12 @@ public class TestEntityBuilder {
         return noteEntities;
     }
 
-    private NoteEntity initNote() {
+    /**
+     * return full note instance.
+     *
+     * @return note instance
+     */
+    public NoteEntity initNote() {
         NoteEntity note = new NoteEntity();
 
         note.setTitle("SomeNote");
@@ -127,7 +101,12 @@ public class TestEntityBuilder {
         return markEntities;
     }
 
-    private MarkEntity initMark() {
+    /**
+     * Return full mark entity.
+     *
+     * @return markEntity
+     */
+    public MarkEntity initMark() {
         MarkEntity markEntity = new MarkEntity();
 
         markEntity.setId(0);

@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -45,7 +46,7 @@ public class NoteEntity {
             inverseJoinColumns = @JoinColumn(name = "id_mark",
                     referencedColumnName = "id",
                     nullable = false))
-    private Set<MarkEntity> marks;
+    private Set<MarkEntity> marks = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "id_note_book", referencedColumnName = "id", nullable = false)

@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -37,6 +38,6 @@ public class NoteBookEntity {
     private UserEntity user;
 
     @OneToMany(mappedBy = "noteBook", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<NoteEntity> notes;
+    private Set<NoteEntity> notes = new HashSet<>();
 
 }
