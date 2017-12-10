@@ -4,6 +4,7 @@ package com.epam.services;
 import com.epam.dto.UserDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     /**

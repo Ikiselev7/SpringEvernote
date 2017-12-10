@@ -6,7 +6,7 @@ import com.epam.dto.NoteDto;
 
 import java.util.List;
 
-public interface NoteDaoDto{
+public interface NoteDaoDto {
     NoteDto save(NoteDto noteDto);
 
     NoteDto findById(Long id);

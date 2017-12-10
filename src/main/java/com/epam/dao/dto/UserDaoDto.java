@@ -9,7 +9,7 @@ public interface UserDaoDto {
 
     UserDto findById(Long id);
 
-    UserDto delete(UserDto userDto);
+    void delete(UserDto userDto);
 
     List<UserDto> findAll();
 }

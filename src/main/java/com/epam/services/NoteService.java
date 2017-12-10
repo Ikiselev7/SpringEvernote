@@ -5,6 +5,7 @@ import com.epam.dto.NoteBookDto;
 import com.epam.dto.NoteDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface NoteService {
     /**
