@@ -6,7 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -34,13 +35,8 @@ public class DataSourceConfig implements DataConfig {
 
     @Bean
     public DataSource dataSource() {
-        try {
-            DriverManagerDataSource dataSource = new DriverManagerDataSource();
-            dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-            dataSource.setUrl(env.getProperty("jdbc.url"));
-            return dataSource;
-        } catch (Exception e) {
-            return null;
-        }
+        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
+                .addScript("schema.sql")
+                .build();
     }
 }
