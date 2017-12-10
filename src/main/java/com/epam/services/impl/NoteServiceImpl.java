@@ -1,6 +1,5 @@
 package com.epam.services.impl;
 
-import com.epam.dao.dto.NoteBookDaoDto;
 import com.epam.dao.dto.NoteDaoDto;
 import com.epam.dto.MarkDto;
 import com.epam.dto.NoteBookDto;
