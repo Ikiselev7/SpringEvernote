@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -85,7 +87,10 @@ public class TestEntityBuilder {
 
         noteBookEntity.setId(0L);
         noteBookEntity.setName("Default");
-        noteBookEntity.setCreateDate(LocalDateTime.now());
+        noteBookEntity.setCreateDate(ZonedDateTime.of(
+                LocalDateTime.of(2017, 1, 1, 0, 37, 25),
+                ZoneId.systemDefault()
+        ));
         noteBookEntity.setNotes(initNoteSet());
         noteBookEntity.getNotes().forEach(note -> note.setNoteBook(noteBookEntity));
 
@@ -104,7 +109,10 @@ public class TestEntityBuilder {
 
         note.setTitle("SomeNote");
         note.setId(0L);
-        note.setCreateDate(LocalDateTime.now());
+        note.setCreateDate(ZonedDateTime.of(
+                LocalDateTime.of(2017, 1, 1, 0, 37, 25),
+                ZoneId.systemDefault()
+        ));
         note.setDescription("SomeNoteText");
 
         note.setMarks(initMarkSet());

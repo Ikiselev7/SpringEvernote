@@ -1,11 +1,15 @@
 INSERT INTO user(id, first_name, last_name,  email, password)
 VALUES
-  ('1', 'some', 'some', 'some@email.com', 'password123');
+  ('1', 'some', 'some', 'some@email.com', 'password123'),
+  ('2', 'Ivan', 'Ivanov', 'ivan@email.com', 'pass'),
+  ('3', 'some', 'some', 'some@email.com', 'password123');
+
 
 INSERT INTO note_book(id, name, create_date, id_user)
     VALUES
       ('1', 'default', '2017-12-01 20:37:25', '1'),
-      ('2', 'MyFirstNoteBook', '2017-12-01 21:37:25', '1');
+      ('2', 'MyFirstNoteBook', '2017-12-01 21:37:25', '1'),
+      ('3', 'forDeletion', '2017-11-01 21:37:25', '2');
 
 INSERT INTO note(id, title, description, create_date, id_note_book)
     VALUES

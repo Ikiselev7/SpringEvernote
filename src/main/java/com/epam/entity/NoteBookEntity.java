@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -29,13 +30,13 @@ public class NoteBookEntity {
     @Basic
     @Column(name = "create_date", nullable = false)
     @Convert(converter = TimestampPersistenceConverter.class)
-    private LocalDateTime createDate;
+    private ZonedDateTime createDate;
 
     @ManyToOne
     @JoinColumn(name = "id_user", referencedColumnName = "id", nullable = false)
     private UserEntity user;
 
-    @OneToMany(mappedBy = "noteBook")
+    @OneToMany(mappedBy = "noteBook", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<NoteEntity> notes;
 
 }
