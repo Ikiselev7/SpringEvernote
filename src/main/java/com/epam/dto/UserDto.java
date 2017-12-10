@@ -11,7 +11,7 @@ import java.util.Set;
 @Setter
 @ToString(exclude = {"noteBooks"})
 @EqualsAndHashCode(exclude = {"noteBooks"})
-public class UserDTO {
+public class UserDto {
     private long id;
 
     private String firstName;
@@ -22,5 +22,5 @@ public class UserDTO {
 
     private String password;
 
-    private Set<NoteBookDTO> noteBooks;
+    private Set<NoteBookDto> noteBooks;
 }

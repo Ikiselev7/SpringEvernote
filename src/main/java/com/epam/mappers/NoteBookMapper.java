@@ -1,18 +1,19 @@
 package com.epam.mappers;
 
-import com.epam.dto.NoteBookDTO;
+import com.epam.dto.NoteBookDto;
 import com.epam.entity.NoteBookEntity;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper(componentModel = "spring")
-public class NoteBookMapper {
-    NoteBookDTO noteBookToNoteBookDto(NoteBookEntity noteBook);
+public interface NoteBookMapper {
+    NoteBookDto noteBookToNoteBookDto(NoteBookEntity noteBook);
 
-    List<NoteBookDTO> noteBooksToNoteBooksDto(List<NoteBookEntity> noteBooks);
+    List<NoteBookDto> noteBooksToNoteBooksDto(List<NoteBookEntity> noteBooks);
 
-    NoteBookEntity noteBookDtoToNoteBook(NoteBookDTO noteBook);
+    NoteBookEntity noteBookDtoToNoteBook(NoteBookDto noteBook);
 
-    List<NoteBookEntity> noteBooksDtoToNoteBooks(List<NoteBookDTO> noteBooks);
+    List<NoteBookEntity> noteBooksDtoToNoteBooks(List<NoteBookDto> noteBooks);
 }

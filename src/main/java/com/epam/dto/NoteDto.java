@@ -12,7 +12,7 @@ import java.util.Set;
 @Setter
 @ToString(exclude = {"marks", "noteBook"})
 @EqualsAndHashCode(exclude = {"marks", "noteBook"})
-public class NoteDTO {
+public class NoteDto {
     private long id;
 
     private String title;
@@ -21,7 +21,7 @@ public class NoteDTO {
 
     private Date createDate;
 
-    private Set<MarkDTO> marks;
+    private Set<MarkDto> marks;
 
-    private NoteBookDTO noteBook;
+    private NoteBookDto noteBook;
 }

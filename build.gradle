@@ -1,7 +1,15 @@
+
+plugins {
+    id 'net.ltgt.apt' version '0.8'
+}
+
 group 'springevernote'
 version '0.1-SNAPSHOT'
 
+
+
 apply plugin: 'java'
+
 
 sourceCompatibility = 1.8
 
@@ -18,7 +26,11 @@ dependencies {
     compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.0.0.RELEASE'
     compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '8.5.11'
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.11.Final'
-    compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: '1.1.0.Final'
+    compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: '1.2.0.Final'
+    compile group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.2.0.Final'
+
+    apt 'org.mapstruct:mapstruct-processor:1.2.0.Final'
+
     testCompile group: 'org.springframework', name: 'spring-test', version: '4.3.12.RELEASE'
     testCompile group: 'com.h2database', name: 'h2', version: '1.4.196'
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'

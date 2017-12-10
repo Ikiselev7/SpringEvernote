@@ -12,14 +12,14 @@ import java.util.Set;
 @Setter
 @ToString(exclude = {"notes", "user"})
 @EqualsAndHashCode(exclude = {"notes", "user"})
-public class NoteBookDTO {
+public class NoteBookDto {
     private long id;
 
     private String name;
 
     private Date createDate;
 
-    private UserDTO user;
+    private UserDto user;
 
-    private Set<NoteDTO> notes;
+    private Set<NoteDto> notes;
 }

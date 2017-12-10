@@ -1,18 +1,22 @@
 package com.epam.mappers;
 
-import com.epam.dto.MarkDTO;
+import com.epam.dto.MarkDto;
 import com.epam.entity.MarkEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public class MarkMapper {
-    MarkDTO markToMarkDto(MarkEntity mark);
+public interface MarkMapper {
 
-    List<MarkDTO> marksToMarksDto(List<MarkEntity> marks);
+    MarkMapper INSTANCE = Mappers.getMapper( MarkMapper.class );
 
-    MarkEntity markDtoToMark(MarkDTO mark);
+    MarkDto markToMarkDto(MarkEntity mark);
 
-    List<MarkEntity> marksDtoToMarks(List<MarkDTO> marks);
+    List<MarkDto> marksToMarksDto(List<MarkEntity> marks);
+
+    MarkEntity markDtoToMark(MarkDto mark);
+
+    List<MarkEntity> marksDtoToMarks(List<MarkDto> marks);
 }

@@ -1,26 +1,27 @@
 package com.epam.services;
 
 
-import com.epam.entity.UserEntity;
+import com.epam.dto.UserDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     /**
      * Create User.
      *
-     * @param userEntity user data
+     * @param userDto user data
      * @return user entity
      */
-    UserEntity save(UserEntity userEntity);
+    UserDto save(UserDto userDto);
 
     /**
      * Update user.
      *
-     * @param userEntity user data
+     * @param userDto user data
      * @return updated data
      */
-    UserEntity update(UserEntity userEntity);
+    UserDto update(UserDto userDto);
 
     /**
      * Read user data.
@@ -28,19 +29,19 @@ public interface UserService {
      * @param id user id
      * @return user
      */
-    UserEntity read(Long id);
+    UserDto read(Long id);
 
     /**
      * Delete user.
      *
-     * @param userEntity user
+     * @param userDto user
      */
-    void delete(UserEntity userEntity);
+    void delete(UserDto userDto);
 
     /**
      * Return all users.
      *
      * @return list of users
      */
-    List<UserEntity> getAll();
+    List<UserDto> getAll();
 }

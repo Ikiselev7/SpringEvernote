@@ -1,7 +1,7 @@
 package com.epam.services;
 
-import com.epam.entity.NoteBookEntity;
-import com.epam.entity.UserEntity;
+import com.epam.dto.NoteBookDto;
+import com.epam.dto.UserDto;
 
 import java.util.List;
 
@@ -9,18 +9,18 @@ public interface NoteBookService {
     /**
      * Create NoteBook.
      *
-     * @param noteBookEntity notebook data
+     * @param noteBookDto notebook data
      * @return notebook entity
      */
-    NoteBookEntity save(NoteBookEntity noteBookEntity);
+    NoteBookDto save(NoteBookDto noteBookDto);
 
     /**
      * Update notebook.
      *
-     * @param noteBookEntity notebook data
+     * @param noteBookDto notebook data
      * @return updated data
      */
-    NoteBookEntity update(NoteBookEntity noteBookEntity);
+    NoteBookDto update(NoteBookDto noteBookDto);
 
     /**
      * Read notebook data.
@@ -28,20 +28,20 @@ public interface NoteBookService {
      * @param id notebook id
      * @return notebook
      */
-    NoteBookEntity read(Long id);
+    NoteBookDto read(Long id);
 
     /**
      * Delete notebook.
      *
-     * @param noteBookEntity notebook
+     * @param noteBookDto notebook
      */
-    void delete(NoteBookEntity noteBookEntity);
+    void delete(NoteBookDto noteBookDto);
 
     /**
      * Return all notebooks by user.
      *
-     * @param userEntity user
+     * @param userDto user
      * @return list of notebooks
      */
-    List<NoteBookEntity> getAllByUser(UserEntity userEntity);
+    List<NoteBookDto> getAllByUser(UserDto userDto);
 }

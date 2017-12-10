@@ -1,27 +1,28 @@
 package com.epam.services;
 
-import com.epam.entity.MarkEntity;
-import com.epam.entity.NoteBookEntity;
-import com.epam.entity.NoteEntity;
+import com.epam.dto.MarkDto;
+import com.epam.dto.NoteBookDto;
+import com.epam.dto.NoteDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface NoteService {
     /**
      * Create Note.
      *
-     * @param noteEntity note data
+     * @param noteDto note data
      * @return note entity
      */
-    NoteEntity save(NoteEntity noteEntity);
+    NoteDto save(NoteDto noteDto);
 
     /**
      * Update note.
      *
-     * @param noteEntity note data
+     * @param noteDto note data
      * @return updated data
      */
-    NoteEntity update(NoteEntity noteEntity);
+    NoteDto update(NoteDto noteDto);
 
     /**
      * Read note data.
@@ -29,28 +30,28 @@ public interface NoteService {
      * @param id note id
      * @return note
      */
-    NoteEntity read(Long id);
+    NoteDto read(Long id);
 
     /**
      * Delete note.
      *
-     * @param noteEntity note
+     * @param noteDto note
      */
-    void delete(NoteEntity noteEntity);
+    void delete(NoteDto noteDto);
 
     /**
      * Return all notes from notebook.
      *
-     * @param noteBookEntity notebook
+     * @param noteBookDto notebook
      * @return list of notes
      */
-    List<NoteEntity> getAllByNoteBook(NoteBookEntity noteBookEntity);
+    List<NoteDto> getAllByNoteBook(NoteBookDto noteBookDto);
 
     /**
      * Return all by mark.
      *
-     * @param markEntity mark
+     * @param markDto mark
      * @return list of notes
      */
-    List<NoteEntity> getByMark(MarkEntity markEntity);
+    List<NoteDto> getByMark(MarkDto markDto);
 }
