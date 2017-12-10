@@ -6,23 +6,19 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.HashSet;
+import java.sql.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "note")
+@Table(name = "note", schema = "public", catalog = "Evernote")
 @Getter
 @Setter
 @ToString(exclude = {"marks","noteBook"})
 @EqualsAndHashCode(exclude = {"marks","noteBook"})
 public class NoteEntity {
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Basic
@@ -35,18 +31,11 @@ public class NoteEntity {
 
     @Basic
     @Column(name = "create_date", nullable = false)
-    @Convert(converter = TimestampPersistenceConverter.class)
-    private ZonedDateTime createDate;
+    private Date createDate;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "note_mark",
-            joinColumns = @JoinColumn(name = "id_note",
-                    referencedColumnName = "id",
-                    nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "id_mark",
-                    referencedColumnName = "id",
-                    nullable = false))
-    private Set<MarkEntity> marks = new HashSet<>();
+    @ManyToMany
+    @JoinTable(name = "note_mark", catalog = "Evernote", schema = "public", joinColumns = @JoinColumn(name = "id_note", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "id_mark", referencedColumnName = "id", nullable = false))
+    private Set<MarkEntity> marks;
 
     @ManyToOne
     @JoinColumn(name = "id_note_book", referencedColumnName = "id", nullable = false)
