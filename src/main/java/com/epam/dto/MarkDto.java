@@ -11,10 +11,10 @@ import java.util.Set;
 @Setter
 @ToString(exclude = {"notes"})
 @EqualsAndHashCode(exclude = {"notes"})
-public class MarkDTO {
+public class MarkDto {
     private long id;
 
     private String name;
 
-    private Set<NoteDTO> notes;
+    private Set<NoteDto> notes;
 }

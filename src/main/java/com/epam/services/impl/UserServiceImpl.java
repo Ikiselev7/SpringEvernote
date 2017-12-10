@@ -1,7 +1,7 @@
 package com.epam.services.impl;
 
-import com.epam.dao.UserDao;
-import com.epam.entity.UserEntity;
+import com.epam.dao.dto.UserDaoDto;
+import com.epam.dto.UserDto;
 import com.epam.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,30 +13,30 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserDao userDao;
+    private UserDaoDto userDaoDto;
 
     @Override
-    public UserEntity save(UserEntity userEntity) {
-        return userDao.save(userEntity);
+    public UserDto save(UserDto userDto) {
+        return userDaoDto.save(userDto);
     }
 
     @Override
-    public UserEntity update(UserEntity userEntity) {
-        return userDao.save(userEntity);
+    public UserDto update(UserDto userDto) {
+        return userDaoDto.save(userDto);
     }
 
     @Override
-    public UserEntity read(Long id) {
-        return userDao.findById(id).orElseThrow(IllegalArgumentException::new);
+    public UserDto read(Long id) {
+        return userDaoDto.findById(id);
     }
 
     @Override
-    public void delete(UserEntity userEntity) {
-        userDao.delete(userEntity);
+    public void delete(UserDto userDto) {
+        userDaoDto.delete(userDto);
     }
 
     @Override
-    public List<UserEntity> getAll() {
-        return userDao.findAll();
+    public List<UserDto> getAll() {
+        return userDaoDto.findAll();
     }
 }
