@@ -1,11 +1,10 @@
 package com.epam.services;
 
-import com.epam.dto.MarkDto;
-import com.epam.dto.NoteBookDto;
-import com.epam.dto.NoteDto;
+import com.epam.models.MarkDto;
+import com.epam.models.NoteBookDto;
+import com.epam.models.NoteDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface NoteService {
     /**

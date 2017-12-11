@@ -1,8 +1,8 @@
 package com.epam.services.impl;
 
-import com.epam.dao.dto.NoteBookDaoDto;
-import com.epam.dto.NoteBookDto;
-import com.epam.dto.UserDto;
+import com.epam.dao.NoteBookDao;
+import com.epam.models.NoteBookDto;
+import com.epam.models.UserDto;
 import com.epam.services.NoteBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,30 +10,30 @@ import java.util.List;
 
 public class NoteBookServiceImpl implements NoteBookService {
     @Autowired
-    private NoteBookDaoDto noteBookDaoDto;
+    private NoteBookDao noteBookDao;
 
     @Override
     public NoteBookDto save(NoteBookDto noteBookDto) {
-        return noteBookDaoDto.save(noteBookDto);
+        return noteBookDao.save(noteBookDto);
     }
 
     @Override
     public NoteBookDto update(NoteBookDto noteBookDto) {
-        return noteBookDaoDto.save(noteBookDto);
+        return noteBookDao.save(noteBookDto);
     }
 
     @Override
     public NoteBookDto read(Long id) {
-        return noteBookDaoDto.findById(id);
+        return noteBookDao.findById(id);
     }
 
     @Override
     public void delete(NoteBookDto noteBookDto) {
-        noteBookDaoDto.delete(noteBookDto);
+        noteBookDao.delete(noteBookDto);
     }
 
     @Override
     public List<NoteBookDto> getAllByUser(UserDto userDto) {
-        return noteBookDaoDto.findAllByUserId(userDto);
+        return noteBookDao.findAllByUser(userDto);
     }
 }

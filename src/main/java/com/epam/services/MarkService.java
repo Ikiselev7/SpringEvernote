@@ -1,8 +1,8 @@
 package com.epam.services;
 
-import com.epam.dto.MarkDto;
-import com.epam.dto.NoteDto;
-import com.epam.dto.UserDto;
+import com.epam.models.MarkDto;
+import com.epam.models.NoteDto;
+import com.epam.models.UserDto;
 
 import java.util.List;
 

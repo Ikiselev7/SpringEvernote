@@ -1,8 +1,8 @@
 package com.epam.services;
 
-import com.epam.dao.dto.impl.NoteBookDaoDtoImpl;
-import com.epam.dto.NoteBookDto;
-import com.epam.dto.UserDto;
+import com.epam.dao.impl.NoteBookDaoImpl;
+import com.epam.models.NoteBookDto;
+import com.epam.models.UserDto;
 import com.epam.services.impl.NoteBookServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +24,7 @@ public class NoteBookServiceTest {
     private NoteBookServiceImpl noteBookService;
 
     @Mock
-    private NoteBookDaoDtoImpl noteBookDaoDto;
+    private NoteBookDaoImpl noteBookDaoDto;
 
     @Test
     public void save() throws Exception {
@@ -53,6 +53,6 @@ public class NoteBookServiceTest {
     @Test
     public void getAllByUser() throws Exception {
         noteBookService.getAllByUser(mokedUser);
-        verify(noteBookDaoDto).findAllByUserId(mokedUser);
+        verify(noteBookDaoDto).findAllByUser(mokedUser);
     }
 }

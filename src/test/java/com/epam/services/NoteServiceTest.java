@@ -1,9 +1,9 @@
 package com.epam.services;
 
-import com.epam.dao.dto.impl.NoteDaoDtoImpl;
-import com.epam.dto.MarkDto;
-import com.epam.dto.NoteBookDto;
-import com.epam.dto.NoteDto;
+import com.epam.dao.impl.NoteDaoImpl;
+import com.epam.models.MarkDto;
+import com.epam.models.NoteBookDto;
+import com.epam.models.NoteDto;
 import com.epam.services.impl.NoteServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +28,7 @@ public class NoteServiceTest {
     private NoteServiceImpl noteService;
 
     @Mock
-    private NoteDaoDtoImpl noteDaoDto;
+    private NoteDaoImpl noteDaoDto;
 
     @Test
     public void save() throws Exception {
