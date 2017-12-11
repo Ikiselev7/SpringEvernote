@@ -1,9 +1,9 @@
 package com.epam.util;
 
-import com.epam.entity.MarkEntity;
-import com.epam.entity.NoteBookEntity;
-import com.epam.entity.NoteEntity;
-import com.epam.entity.UserEntity;
+import com.epam.dao.entity.Mark;
+import com.epam.dao.entity.NoteBook;
+import com.epam.dao.entity.Note;
+import com.epam.dao.entity.User;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -16,32 +16,32 @@ import java.util.Set;
 @Component
 public class TestEntityBuilder {
 
-    private UserEntity userEntity;
+    private User user;
 
     @PostConstruct
     public void init() {
-        userEntity = new UserEntity();
-        userEntity.setEmail("some@email.com");
-        userEntity.setFirstName("SomeFirstName");
-        userEntity.setLastName("SomeLastName");
-        userEntity.setPassword("SomePassword123");
-        userEntity.setId(0L);
-        userEntity.setNoteBooks(initNoteBookSet());
-        userEntity.getNoteBooks().forEach(notebook -> notebook.setUser(userEntity));
+        user = new User();
+        user.setEmail("some@email.com");
+        user.setFirstName("SomeFirstName");
+        user.setLastName("SomeLastName");
+        user.setPassword("SomePassword123");
+        user.setId(0L);
+        user.setNoteBooks(initNoteBookSet());
+        user.getNoteBooks().forEach(notebook -> notebook.setUser(user));
 
     }
 
     /**
      * Return full User instance.
      *
-     * @return userEntity
+     * @return user
      */
-    public UserEntity getUserEntity() {
-        return userEntity;
+    public User getUser() {
+        return user;
     }
 
-    private Set<NoteBookEntity> initNoteBookSet() {
-        Set<NoteBookEntity> noteBookEntities = new HashSet<>();
+    private Set<NoteBook> initNoteBookSet() {
+        Set<NoteBook> noteBookEntities = new HashSet<>();
         noteBookEntities.add(initNoteBook());
         return noteBookEntities;
     }
@@ -51,23 +51,23 @@ public class TestEntityBuilder {
      *
      * @return notebookEntity
      */
-    public NoteBookEntity initNoteBook() {
-        NoteBookEntity noteBookEntity = new NoteBookEntity();
+    public NoteBook initNoteBook() {
+        NoteBook noteBook = new NoteBook();
 
-        noteBookEntity.setId(0L);
-        noteBookEntity.setName("Default");
-        noteBookEntity.setCreateDate(ZonedDateTime.of(
+        noteBook.setId(0L);
+        noteBook.setName("Default");
+        noteBook.setCreateDate(ZonedDateTime.of(
                 LocalDateTime.of(2017, 1, 1, 0, 37, 25),
                 ZoneId.systemDefault()
         ));
-        noteBookEntity.setNotes(initNoteSet());
-        noteBookEntity.getNotes().forEach(note -> note.setNoteBook(noteBookEntity));
+        noteBook.setNotes(initNoteSet());
+        noteBook.getNotes().forEach(note -> note.setNoteBook(noteBook));
 
-        return noteBookEntity;
+        return noteBook;
     }
 
-    private Set<NoteEntity> initNoteSet() {
-        Set<NoteEntity> noteEntities = new HashSet<>();
+    private Set<Note> initNoteSet() {
+        Set<Note> noteEntities = new HashSet<>();
         noteEntities.add(initNote());
         noteEntities.add(initNote());
         return noteEntities;
@@ -78,8 +78,8 @@ public class TestEntityBuilder {
      *
      * @return note instance
      */
-    public NoteEntity initNote() {
-        NoteEntity note = new NoteEntity();
+    public Note initNote() {
+        Note note = new Note();
 
         note.setTitle("SomeNote");
         note.setId(0L);
@@ -95,8 +95,8 @@ public class TestEntityBuilder {
         return note;
     }
 
-    private Set<MarkEntity> initMarkSet() {
-        Set<MarkEntity> markEntities = new HashSet<>();
+    private Set<Mark> initMarkSet() {
+        Set<Mark> markEntities = new HashSet<>();
         markEntities.add(initMark());
         return markEntities;
     }
@@ -106,14 +106,14 @@ public class TestEntityBuilder {
      *
      * @return markEntity
      */
-    public MarkEntity initMark() {
-        MarkEntity markEntity = new MarkEntity();
+    public Mark initMark() {
+        Mark mark = new Mark();
 
-        markEntity.setId(0);
-        markEntity.setName("SomeTag");
-        markEntity.setNotes(new HashSet<>());
+        mark.setId(0);
+        mark.setName("SomeTag");
+        mark.setNotes(new HashSet<>());
 
-        return markEntity;
+        return mark;
     }
 
 }

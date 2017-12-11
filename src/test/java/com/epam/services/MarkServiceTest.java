@@ -1,9 +1,9 @@
 package com.epam.services;
 
-import com.epam.dao.dto.impl.MarkDaoDtoImpl;
-import com.epam.dto.MarkDto;
-import com.epam.dto.NoteDto;
-import com.epam.dto.UserDto;
+import com.epam.dao.impl.MarkDaoImpl;
+import com.epam.models.MarkDto;
+import com.epam.models.NoteDto;
+import com.epam.models.UserDto;
 import com.epam.services.impl.MarkServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +28,7 @@ public class MarkServiceTest {
     private MarkServiceImpl markService;
 
     @Mock
-    private MarkDaoDtoImpl markDaoDto;
+    private MarkDaoImpl markDaoDto;
 
     @Test
     public void save() throws Exception {
@@ -57,7 +57,7 @@ public class MarkServiceTest {
     @Test
     public void getAllByNote() throws Exception {
         markService.getAllByNote(mokedNote);
-        verify(markDaoDto).findAllByNoteId(mokedNote);
+        verify(markDaoDto).findAllByNote(mokedNote);
     }
 
     @Test

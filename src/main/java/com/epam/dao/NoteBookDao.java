@@ -1,9 +1,16 @@
 package com.epam.dao;
 
-import com.epam.entity.NoteBookEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import com.epam.models.NoteBookDto;
+import com.epam.models.UserDto;
 
-@Repository
-public interface NoteBookDao extends JpaRepository<NoteBookEntity, Long> {
+import java.util.List;
+
+public interface NoteBookDao {
+    NoteBookDto save(NoteBookDto noteBookDto);
+
+    NoteBookDto findById(Long id);
+
+    void delete(NoteBookDto noteBookDto);
+
+    List<NoteBookDto> findAllByUser(UserDto userDto);
 }

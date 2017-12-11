@@ -1,12 +1,15 @@
 package com.epam.dao;
 
-import com.epam.entity.UserEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import com.epam.models.UserDto;
 
-import java.util.Optional;
+import java.util.List;
 
-@Repository
-public interface UserDao extends JpaRepository<UserEntity, Long> {
+public interface UserDao {
+    UserDto save(UserDto userDto);
 
+    UserDto findById(Long id);
+
+    void delete(UserDto userDto);
+
+    List<UserDto> findAll();
 }

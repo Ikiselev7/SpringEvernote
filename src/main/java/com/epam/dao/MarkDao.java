@@ -1,11 +1,19 @@
 package com.epam.dao;
 
+import com.epam.models.MarkDto;
+import com.epam.models.NoteDto;
+import com.epam.models.UserDto;
 
-import com.epam.entity.MarkEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-@Repository
-public interface MarkDao extends JpaRepository<MarkEntity, Long> {
+public interface MarkDao {
+    MarkDto save(MarkDto markDto);
 
+    MarkDto findById(Long id);
+
+    void delete(MarkDto markDto);
+
+    List<MarkDto> findAllByNote(NoteDto noteDto);
+
+    List<MarkDto> findAllByUserId(UserDto userDto);
 }

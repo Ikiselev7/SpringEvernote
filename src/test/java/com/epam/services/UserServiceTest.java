@@ -1,7 +1,7 @@
 package com.epam.services;
 
-import com.epam.dao.dto.impl.UserDaoDtoImpl;
-import com.epam.dto.UserDto;
+import com.epam.dao.impl.UserDaoImpl;
+import com.epam.models.UserDto;
 import com.epam.services.impl.UserServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +20,7 @@ public class UserServiceTest {
     private UserServiceImpl userService;
 
     @Mock
-    private UserDaoDtoImpl userDaoDto;
+    private UserDaoImpl userDaoDto;
 
     @Test
     public void save() throws Exception {
