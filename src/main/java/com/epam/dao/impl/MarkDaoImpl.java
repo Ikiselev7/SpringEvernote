@@ -10,21 +10,23 @@ import com.epam.models.MarkDto;
 import com.epam.models.NoteDto;
 import com.epam.models.UserDto;
 import com.epam.dao.mappers.MarkMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class MarkDaoImpl implements MarkDao {
     @Autowired
     private MarkJpaRepository markJpaRepository;
-    @Autowired
-    private MarkMapper markMapper;
-    @Autowired
-    private NoteMapper noteMapper;
-    @Autowired
-    private UserMapper userMapper;
+
+    private final MarkMapper markMapper;
+
+    private final NoteMapper noteMapper;
+
+    private final UserMapper userMapper;
 
 
     @Override
