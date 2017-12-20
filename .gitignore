@@ -6,3 +6,4 @@ classes
 *.log
 out
 gradle
+lib
