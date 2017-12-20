@@ -39,7 +39,7 @@ public class MarkServiceImpl implements MarkService {
     }
 
     @Override
-    public List<MarkDto> getByMark(UserDto userDto) {
+    public List<MarkDto> getAllMarkByUser(UserDto userDto) {
         return markDao.findAllByUserId(userDto);
     }
 }

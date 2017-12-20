@@ -52,5 +52,5 @@ public interface MarkService {
      * @param userDto user
      * @return list of notes
      */
-    List<MarkDto> getByMark(UserDto userDto);
+    List<MarkDto> getAllMarkByUser(UserDto userDto);
 }

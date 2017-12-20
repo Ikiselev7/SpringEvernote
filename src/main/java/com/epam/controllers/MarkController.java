@@ -1,8 +1,9 @@
 package com.epam.controllers;
 
+import com.epam.controllers.ControllerModels.MarkModel;
+import com.epam.controllers.controllerMap.MarkTransformer;
 import com.epam.models.MarkDto;
 import com.epam.models.NoteDto;
-import com.epam.models.UserDto;
 import com.epam.services.MarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,34 +21,46 @@ public class MarkController {
 
     @Autowired
     MarkService markService;
+    @Autowired
+    MarkTransformer markTransformer;
 
-    @GetMapping(value = "user/{id}/marks")
-    public ResponseEntity<List<MarkDto>> getAllByMark(@PathVariable("userDto") UserDto user) {
-        return new ResponseEntity<>(markService.getByMark(user), HttpStatus.OK);
-    }
-
-    @GetMapping(value = "user/{id}/marks")
-    public ResponseEntity<List<MarkDto>> getAllByNote(@PathVariable("noteDto")NoteDto noteDto) {
-        return new ResponseEntity<>(markService.getAllByNote(noteDto), HttpStatus.OK);
-    }
 
     @PostMapping(value = "user/{id}/notebook/{id}/note/{id}/mark")
     public ResponseEntity<MarkDto> saveMark(@PathVariable("markDto") MarkDto markDto) {
         return new ResponseEntity<>(markService.save(markDto), HttpStatus.OK);
     }
 
-    @PutMapping(value = "user/{id}/notebook/{id}/note/{id}/mark")
+    @GetMapping(value = "user/{id}/marks")
+    public ResponseEntity<List<MarkDto>> getAllMarkByUser(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(markService.getAllMarkByUser(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "note/{id}/marks")
+    public ResponseEntity<List<MarkDto>> getAllByNote(@PathVariable("id") NoteDto noteDto) {
+        return new ResponseEntity<>(markService.getAllByNote(noteDto), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "mark")
     public ResponseEntity<MarkDto> updateMark(@PathVariable("markDto") MarkDto markDto) {
         return new ResponseEntity<>(markService.update(markDto), HttpStatus.OK);
     }
 
-    @GetMapping(value = "user/{id}/mark/{id}")
-    public ResponseEntity<MarkDto> getMarkById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(markService.read(id), HttpStatus.OK);
+    @GetMapping(value = "mark/{id}")
+    public ResponseEntity<MarkModel> getMarkById(@PathVariable("id") Long id) {
+        MarkDto markDto = markService.read(id);
+
+        if(markDto == null) {
+            throw new IllegalArgumentException("Bad id " + id);
+        }
+        MarkModel markModel = markTransformer.unbind(markDto);
+
+
+        return new ResponseEntity<>(markModel, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "user/{id}/notebook/{id}/note/{id}/mark")
+    @DeleteMapping(value = "mark")
     public void deleteMarkById(@PathVariable("markDto") MarkDto markDto) {
+
         markService.delete(markDto);
     }
 
