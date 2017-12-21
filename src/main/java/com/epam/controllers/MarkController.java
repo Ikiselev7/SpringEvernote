@@ -2,7 +2,6 @@ package com.epam.controllers;
 
 import com.epam.controllers.ControllerModels.MarkModel;
 import com.epam.controllers.controllerMap.MarkTransformer;
-import com.epam.controllers.controllerMap.UserTransformer;
 import com.epam.models.MarkDto;
 import com.epam.models.NoteDto;
 import com.epam.models.UserDto;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,14 +31,15 @@ public class MarkController {
     @Autowired
     private NoteService noteService;
     @Autowired
-    MarkTransformer markTransformer;
-    @Autowired
-    UserTransformer userTransformer;
+    private MarkTransformer markTransformer;
 
     @PostMapping(value = "/mark")
     public ResponseEntity<MarkModel> saveMark(@PathVariable("markModel") MarkModel markModel) {
-        return new ResponseEntity<>(markTransformer.unbind(markService.save(markTransformer.bind
-                (markModel))), HttpStatus.OK);
+        return new ResponseEntity<>(markTransformer
+                .unbind(markService.
+                        save(markTransformer
+                                .bind(markModel))),
+                HttpStatus.OK);
     }
 
     @PutMapping(value = "/mark/{id}")
@@ -51,7 +50,10 @@ public class MarkController {
             throw new IllegalArgumentException("Bad mark id " + id);
         }
         markDto = markTransformer.bind(markModel);
-        return new ResponseEntity<>(markTransformer.unbind(markService.update(markDto)), HttpStatus.OK);
+        return new ResponseEntity<>(markTransformer
+                .unbind(markService
+                        .update(markDto)),
+                HttpStatus.OK);
     }
 
     @GetMapping(value = "/mark/{id}")
