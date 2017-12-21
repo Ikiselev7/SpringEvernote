@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.4.2'
+    }
+}
 
 plugins {
     id 'net.ltgt.apt' version '0.8'
@@ -7,6 +16,7 @@ group 'springevernote'
 version '0.1-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'com.bmuschko.tomcat'
 
 sourceCompatibility = 1.8
 
@@ -26,6 +36,13 @@ dependencies {
     compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: '1.2.0.Final'
     compile group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.2.0.Final'
     compile group: 'org.springframework', name: 'spring-web', version: '4.3.12.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '4.3.12.RELEASE'
+    providedCompile 'javax.servlet:servlet-api:2.5',
+            'javax.servlet:jsp-api:2.0'
+    def tomcatVersion = '9.0.1'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:9.0.0.M6",
+            "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
 
     testCompile group: 'org.springframework', name: 'spring-test', version: '4.3.12.RELEASE'
     testCompile group: 'com.h2database', name: 'h2', version: '1.4.196'
@@ -33,4 +50,9 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     apt 'org.mapstruct:mapstruct-processor:1.2.0.Final'
     apt "org.projectlombok:lombok:1.16.18"
+}
+
+tomcat {
+    httpProtocol = 'org.apache.coyote.http11.Http11Nio2Protocol'
+    ajpProtocol  = 'org.apache.coyote.ajp.AjpNio2Protocol'
 }
