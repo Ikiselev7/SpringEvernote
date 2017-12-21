@@ -21,9 +21,7 @@ public class NoteModel {
 
     private String description;
 
-    private ZonedDateTime createDate;
+    private String createDate;
 
-    private Set<MarkDto> marks;
-
-    private NoteBookDto noteBook;
+    private Long noteBookId;
 }

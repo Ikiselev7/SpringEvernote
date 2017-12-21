@@ -16,7 +16,7 @@ public class NoteBookModel {
 
     private String name;
 
-    private ZonedDateTime createDate;
+    private String createDate;
 
     private Long userId;
 }
