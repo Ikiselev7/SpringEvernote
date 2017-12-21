@@ -42,20 +42,6 @@ public class MarkController {
                 HttpStatus.OK);
     }
 
-    @PutMapping(value = "/mark/{id}")
-    public ResponseEntity<MarkModel> updateMark(@PathVariable("id") Long id,
-                                                @RequestBody MarkModel markModel) {
-        MarkDto markDto = markService.read(id);
-        if (markDto == null) {
-            throw new IllegalArgumentException("Bad mark id " + id);
-        }
-        markDto = markTransformer.bind(markModel);
-        return new ResponseEntity<>(markTransformer
-                .unbind(markService
-                        .update(markDto)),
-                HttpStatus.OK);
-    }
-
     @GetMapping(value = "/mark/{id}")
     public ResponseEntity<MarkModel> getMarkById(@PathVariable("id") Long id) {
         MarkDto markDto = markService.read(id);
@@ -90,6 +76,20 @@ public class MarkController {
             markModels.add(markTransformer.unbind(markDto));
         }
         return new ResponseEntity<>(markModels, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/mark/{id}")
+    public ResponseEntity<MarkModel> updateMark(@PathVariable("id") Long id,
+                                                @RequestBody MarkModel markModel) {
+        MarkDto markDto = markService.read(id);
+        if (markDto == null) {
+            throw new IllegalArgumentException("Bad mark id " + id);
+        }
+        markDto = markTransformer.bind(markModel);
+        return new ResponseEntity<>(markTransformer
+                .unbind(markService
+                        .update(markDto)),
+                HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/mark/{id}")
