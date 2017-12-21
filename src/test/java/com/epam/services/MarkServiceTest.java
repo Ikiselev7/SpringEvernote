@@ -62,7 +62,7 @@ public class MarkServiceTest {
 
     @Test
     public void getByMark() throws Exception {
-        markService.getByMark(mokedUser);
+        markService.getAllMarkByUser(mokedUser);
         verify(markDaoDto).findAllByUserId(mokedUser);
     }
 

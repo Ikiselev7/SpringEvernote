@@ -10,20 +10,22 @@ import com.epam.dao.mappers.NoteMapper;
 import com.epam.models.MarkDto;
 import com.epam.models.NoteBookDto;
 import com.epam.models.NoteDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class NoteDaoImpl implements NoteDao {
     @Autowired
     private NoteJpaRepository noteJpaRepository;
-    @Autowired
-    private NoteMapper noteMapper;
-    @Autowired
-    private NoteBookMapper noteBookMapper;
-    @Autowired
+
+    private final NoteMapper noteMapper;
+
+    private final NoteBookMapper noteBookMapper;
+
     private MarkMapper markMapper;
 
 
