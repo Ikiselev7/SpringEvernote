@@ -47,7 +47,7 @@ public class User {
     @Column(name = "password", nullable = false, length = -1)
     private String password;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<NoteBook> noteBooks = new HashSet<>();
 
 }

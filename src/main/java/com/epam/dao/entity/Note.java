@@ -35,7 +35,7 @@ public class Note {
     @Convert(converter = TimestampPersistenceConverter.class)
     private ZonedDateTime createDate;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "note_mark",
             joinColumns = @JoinColumn(name = "id_note",
                     referencedColumnName = "id",

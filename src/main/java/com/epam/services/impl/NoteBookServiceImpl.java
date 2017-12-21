@@ -5,9 +5,11 @@ import com.epam.models.NoteBookDto;
 import com.epam.models.UserDto;
 import com.epam.services.NoteBookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class NoteBookServiceImpl implements NoteBookService {
     @Autowired
     private NoteBookDao noteBookDao;

@@ -7,6 +7,7 @@ group 'springevernote'
 version '0.1-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'war'
 
 sourceCompatibility = 1.8
 
@@ -15,6 +16,7 @@ repositories {
 }
 
 dependencies {
+    compile group: 'com.h2database', name: 'h2', version: '1.4.196'
     compile group: 'org.springframework', name: 'spring-context', version: '4.3.12.RELEASE'
     compile group: 'org.springframework', name: 'spring-orm', version: '4.3.12.RELEASE'
     compile group: 'org.springframework', name: 'spring-core', version: '4.3.12.RELEASE'
@@ -26,6 +28,14 @@ dependencies {
     compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: '1.2.0.Final'
     compile group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.2.0.Final'
     compile group: 'org.springframework', name: 'spring-web', version: '4.3.12.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '4.3.12.RELEASE'
+    compile 'org.apache.maven.plugins:maven-war-plugin:3.2.0'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.0.1'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.2'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.2'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.2'
+
+
 
     testCompile group: 'org.springframework', name: 'spring-test', version: '4.3.12.RELEASE'
     testCompile group: 'com.h2database', name: 'h2', version: '1.4.196'
@@ -34,3 +44,4 @@ dependencies {
     apt 'org.mapstruct:mapstruct-processor:1.2.0.Final'
     apt "org.projectlombok:lombok:1.16.18"
 }
+

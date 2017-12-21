@@ -6,9 +6,11 @@ import com.epam.models.NoteDto;
 import com.epam.models.UserDto;
 import com.epam.services.MarkService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MarkServiceImpl implements MarkService {
     @Autowired
     private MarkDao markDao;

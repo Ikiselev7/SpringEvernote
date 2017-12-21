@@ -13,20 +13,21 @@ import com.epam.dao.mappers.MarkMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
+@Transactional
 public class MarkDaoImpl implements MarkDao {
     @Autowired
     private MarkJpaRepository markJpaRepository;
-
-    private final MarkMapper markMapper;
-
-    private final NoteMapper noteMapper;
-
-    private final UserMapper userMapper;
+    @Autowired
+    private MarkMapper markMapper;
+    @Autowired
+    private NoteMapper noteMapper;
+    @Autowired
+    private UserMapper userMapper;
 
 
     @Override
