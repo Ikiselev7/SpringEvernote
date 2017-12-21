@@ -6,9 +6,11 @@ import com.epam.models.UserDto;
 import com.epam.services.NoteBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 @Service
 public class NoteBookServiceImpl implements NoteBookService {
     @Autowired
