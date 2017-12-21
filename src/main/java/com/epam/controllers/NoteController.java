@@ -5,11 +5,9 @@ import com.epam.controllers.controllerMap.NoteTransformer;
 import com.epam.models.MarkDto;
 import com.epam.models.NoteBookDto;
 import com.epam.models.NoteDto;
-import com.epam.models.UserDto;
 import com.epam.services.MarkService;
 import com.epam.services.NoteBookService;
 import com.epam.services.NoteService;
-import com.epam.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +28,6 @@ public class NoteController {
     private NoteService noteService;
     @Autowired
     private MarkService markService;
-    @Autowired
-    private UserService userService;
     @Autowired
     private NoteBookService notebookService;
     @Autowired
