@@ -6,9 +6,10 @@ import com.epam.models.NoteBookDto;
 import com.epam.models.NoteDto;
 import com.epam.services.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class NoteServiceImpl implements NoteService {
     @Autowired
     private NoteDao noteDao;

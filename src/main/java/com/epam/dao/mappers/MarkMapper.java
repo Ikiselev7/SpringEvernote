@@ -4,10 +4,12 @@ import com.epam.models.MarkDto;
 import com.epam.dao.entity.Mark;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
+@Transactional
 public interface MarkMapper {
 
     MarkMapper INSTANCE = Mappers.getMapper( MarkMapper.class );

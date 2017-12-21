@@ -1,5 +1,9 @@
 package com.epam.config;
 
+import com.epam.dao.impl.MarkDaoImpl;
+import com.epam.dao.jparepositories.MarkJpaRepository;
+import com.epam.dao.mappers.MarkMapper;
+import com.epam.services.impl.MarkServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,9 +22,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.epam.dao")
-@ComponentScan(basePackages = "com.epam.services")
-@PropertySource("persistences.yaml")
+@EnableJpaRepositories(basePackageClasses = MarkJpaRepository.class)
+@ComponentScan(basePackageClasses = {MarkDaoImpl.class,
+        MarkJpaRepository.class,
+        MarkServiceImpl.class,
+        MarkMapper.class})
 @EnableTransactionManagement
 public class AppConfig {
 
@@ -30,7 +36,7 @@ public class AppConfig {
         EmbeddedDatabase database = builder
                 .setType(EmbeddedDatabaseType.H2)
                 .addScript("schema.sql")
-                .addScript("inserts.sql")
+                .addScript("Inserts.sql")
                 .build();
         return database;
     }
