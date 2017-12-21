@@ -25,7 +25,7 @@ dependencies {
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.11.Final'
     compile group: 'org.mapstruct', name: 'mapstruct-jdk8', version: '1.2.0.Final'
     compile group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.2.0.Final'
-
+    compile group: 'org.springframework', name: 'spring-web', version: '4.3.12.RELEASE'
 
     testCompile group: 'org.springframework', name: 'spring-test', version: '4.3.12.RELEASE'
     testCompile group: 'com.h2database', name: 'h2', version: '1.4.196'

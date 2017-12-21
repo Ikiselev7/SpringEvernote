@@ -39,7 +39,7 @@ public interface MarkService {
     void delete(MarkDto markDto);
 
     /**
-     * Return all notes from note.
+     * Return all marks from note.
      *
      * @param noteDto note
      * @return list of notes
@@ -52,5 +52,5 @@ public interface MarkService {
      * @param userDto user
      * @return list of notes
      */
-    List<MarkDto> getByMark(UserDto userDto);
+    List<MarkDto> getAllMarkByUser(UserDto userDto);
 }

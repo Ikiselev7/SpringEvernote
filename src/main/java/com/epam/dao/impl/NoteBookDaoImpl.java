@@ -7,19 +7,21 @@ import com.epam.dao.mappers.NoteBookMapper;
 import com.epam.dao.mappers.UserMapper;
 import com.epam.models.NoteBookDto;
 import com.epam.models.UserDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class NoteBookDaoImpl implements NoteBookDao {
     @Autowired
     private NoteBookJpaRepository noteBookJpaRepository;
-    @Autowired
-    private NoteBookMapper noteBookMapper;
-    @Autowired
-    private UserMapper userMapper;
+
+    private final NoteBookMapper noteBookMapper;
+
+    private final UserMapper userMapper;
 
     @Override
     public NoteBookDto save(NoteBookDto noteBookDto) {

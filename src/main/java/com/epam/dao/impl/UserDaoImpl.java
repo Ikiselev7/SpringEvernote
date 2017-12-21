@@ -4,16 +4,18 @@ import com.epam.dao.jparepositories.UserJpaRepository;
 import com.epam.dao.UserDao;
 import com.epam.models.UserDto;
 import com.epam.dao.mappers.UserMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class UserDaoImpl implements UserDao {
     @Autowired
     private UserJpaRepository userJpaRepository;
-    @Autowired
+
     private UserMapper userMapper;
 
     @Override
