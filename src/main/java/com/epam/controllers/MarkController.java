@@ -2,7 +2,6 @@ package com.epam.controllers;
 
 import com.epam.controllers.ControllerModels.MarkModel;
 import com.epam.controllers.controllerMap.MarkTransformer;
-import com.epam.controllers.controllerMap.UserTransformer;
 import com.epam.models.MarkDto;
 import com.epam.models.NoteDto;
 import com.epam.models.UserDto;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,28 +31,15 @@ public class MarkController {
     @Autowired
     private NoteService noteService;
     @Autowired
-    MarkTransformer markTransformer;
-    @Autowired
-    UserTransformer userTransformer;
+    private MarkTransformer markTransformer;
 
     @PostMapping(value = "/mark")
-    public ResponseEntity<MarkModel> saveMark(@PathVariable("markModel") MarkModel markModel) {
-        return new ResponseEntity<>(
-                markTransformer.unbind(
-                markService.save(
-                        markTransformer.bind(markModel))),
+    public ResponseEntity<MarkModel> saveMark(@RequestBody MarkModel markModel) {
+        return new ResponseEntity<>(markTransformer
+                .unbind(markService.
+                        save(markTransformer
+                                .bind(markModel))),
                 HttpStatus.OK);
-    }
-
-    @PutMapping(value = "/mark/{id}")
-    public ResponseEntity<MarkModel> updateMark(@PathVariable("id") Long id,
-                                                @RequestBody MarkModel markModel) {
-        MarkDto markDto = markService.read(id);
-        if (markDto == null) {
-            throw new IllegalArgumentException("Bad mark id " + id);
-        }
-        markDto = markTransformer.bind(markModel);
-        return new ResponseEntity<>(markTransformer.unbind(markService.update(markDto)), HttpStatus.OK);
     }
 
     @GetMapping(value = "/mark/{id}")
@@ -68,7 +53,7 @@ public class MarkController {
     }
 
     @GetMapping(value = "/user/{id}/marks")
-    public ResponseEntity<List<MarkModel>> getAllMarkByUser(@PathVariable("id") Long id) {
+    public ResponseEntity<List<MarkModel>> getMarksByUser(@PathVariable("id") Long id) {
         UserDto userDto = userService.read(id);
         if (userDto == null) {
             throw new IllegalArgumentException("Bad user id " + id);
@@ -81,7 +66,7 @@ public class MarkController {
     }
 
     @GetMapping(value = "/note/{id}/marks")
-    public ResponseEntity<List<MarkModel>> getAllByNote(@PathVariable("id") Long id) {
+    public ResponseEntity<List<MarkModel>> getMarksByNote(@PathVariable("id") Long id) {
         NoteDto noteDto = noteService.read(id);
         if (noteDto == null) {
             throw new IllegalArgumentException("Bad note id " + id);
@@ -91,6 +76,20 @@ public class MarkController {
             markModels.add(markTransformer.unbind(markDto));
         }
         return new ResponseEntity<>(markModels, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/mark/{id}")
+    public ResponseEntity<MarkModel> updateMark(@PathVariable("id") Long id,
+                                                @RequestBody MarkModel markModel) {
+        MarkDto markDto = markService.read(id);
+        if (markDto == null) {
+            throw new IllegalArgumentException("Bad mark id " + id);
+        }
+        markDto = markTransformer.bind(markModel);
+        return new ResponseEntity<>(markTransformer
+                .unbind(markService
+                        .update(markDto)),
+                HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/mark/{id}")
