@@ -53,7 +53,7 @@ public class MarkController {
     }
 
     @GetMapping(value = "/user/{id}/marks")
-    public ResponseEntity<List<MarkModel>> getAllMarkByUser(@PathVariable("id") Long id) {
+    public ResponseEntity<List<MarkModel>> getMarksByUser(@PathVariable("id") Long id) {
         UserDto userDto = userService.read(id);
         if (userDto == null) {
             throw new IllegalArgumentException("Bad user id " + id);
@@ -66,7 +66,7 @@ public class MarkController {
     }
 
     @GetMapping(value = "/note/{id}/marks")
-    public ResponseEntity<List<MarkModel>> getAllByNote(@PathVariable("id") Long id) {
+    public ResponseEntity<List<MarkModel>> getMarksByNote(@PathVariable("id") Long id) {
         NoteDto noteDto = noteService.read(id);
         if (noteDto == null) {
             throw new IllegalArgumentException("Bad note id " + id);

@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/users")
-    public ResponseEntity<List<UserModel>> getAllUsers() {
+    public ResponseEntity<List<UserModel>> getUsers() {
         List<UserModel> userModels = new ArrayList<>();
         for (UserDto userDto : userService.getAll()) {
             userModels.add(userTransformer.unbind(userDto));
