@@ -23,12 +23,9 @@ public class MarkTransformer implements Transformer<MarkDto, MarkModel> {
         if(markDto == null) {
             markDto = new MarkDto();
         }
-
         markDto.setId(0);
         markDto.setName(markModel.getName());
         markDto.setNotes(new HashSet<>(noteService.getByMark(markDto)));
-
-
         return markDto;
     }
 
@@ -37,8 +34,6 @@ public class MarkTransformer implements Transformer<MarkDto, MarkModel> {
         MarkModel markModel = new MarkModel();
         markModel.setId(markDto.getId());
         markModel.setName(markDto.getName());
-
-
         return markModel;
     }
 }
