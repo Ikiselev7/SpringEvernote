@@ -34,7 +34,7 @@ public class MarkController {
     private MarkTransformer markTransformer;
 
     @PostMapping(value = "/mark")
-    public ResponseEntity<MarkModel> saveMark(@PathVariable("markModel") MarkModel markModel) {
+    public ResponseEntity<MarkModel> saveMark(@RequestBody MarkModel markModel) {
         return new ResponseEntity<>(markTransformer
                 .unbind(markService.
                         save(markTransformer
