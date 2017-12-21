@@ -16,10 +16,11 @@ public class NoteBookTransformer implements Transformer<NoteBookDto, NoteBookMod
     @Autowired
     private UserService userService;
 
+
     @Override
     public NoteBookDto bind(NoteBookModel noteBookModel) {
         NoteBookDto noteBookDto = noteBookService.read(noteBookModel.getId());
-        if (noteBookDto == null){
+        if (noteBookDto == null) {
             noteBookDto = new NoteBookDto();
             noteBookDto.setCreateDate(ZonedDateTime.now());
             noteBookDto.setId(0);

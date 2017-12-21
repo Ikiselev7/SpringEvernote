@@ -12,8 +12,8 @@ import java.util.Set;
 
 @Getter
 @Setter
-@ToString(exclude = {"marks", "noteBook"})
-@EqualsAndHashCode(exclude = {"marks", "noteBook"})
+@ToString
+@EqualsAndHashCode
 public class NoteModel {
     private long id;
 
