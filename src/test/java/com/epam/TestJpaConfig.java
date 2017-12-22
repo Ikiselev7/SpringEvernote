@@ -1,8 +1,5 @@
 package com.epam;
 
-import com.epam.controllers.MarkController;
-import com.epam.controllers.controllerMap.MarkTransformer;
-import com.epam.dao.impl.MarkDaoImpl;
 import com.epam.dao.jparepositories.MarkJpaRepository;
 import com.epam.services.impl.MarkServiceImpl;
 import com.epam.util.TestEntityBuilder;
@@ -23,11 +20,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.epam.dao")
-@ComponentScan(basePackageClasses = {MarkDaoImpl.class,
-        MarkJpaRepository.class,
-        MarkServiceImpl.class})
-@PropertySource("persistences.yaml")
+@EnableJpaRepositories(basePackageClasses = MarkJpaRepository.class)
+@ComponentScan(basePackageClasses = {MarkJpaRepository.class,
+        MarkServiceImpl.class,
+        TestEntityBuilder.class
+})
 @EnableTransactionManagement
 public class TestJpaConfig {
 

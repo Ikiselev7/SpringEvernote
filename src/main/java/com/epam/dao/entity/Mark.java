@@ -34,7 +34,7 @@ public class Mark {
     @Column(name = "name", nullable = false, length = -1)
     private String name;
 
-    @ManyToMany(mappedBy = "marks", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "marks", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Note> notes = new HashSet<>();
 
 }

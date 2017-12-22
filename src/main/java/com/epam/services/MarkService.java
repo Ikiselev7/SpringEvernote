@@ -1,27 +1,30 @@
 package com.epam.services;
 
-import com.epam.models.MarkDto;
-import com.epam.models.NoteDto;
-import com.epam.models.UserDto;
+import com.epam.dao.entity.Mark;
+import com.epam.dao.entity.Note;
+import com.epam.dao.entity.User;
+
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MarkService {
     /**
      * Create mark.
      *
-     * @param markDto mark data
+     * @param mark mark data
      * @return mark entity
      */
-    MarkDto save(MarkDto markDto);
+    Mark save(Mark mark);
 
     /**
      * Update note.
      *
-     * @param markDto mark data
+     *
+     * @param mark
      * @return updated data
      */
-    MarkDto update(MarkDto markDto);
+    Mark update(Mark mark);
 
     /**
      * Read mark data.
@@ -29,28 +32,28 @@ public interface MarkService {
      * @param id note id
      * @return note
      */
-    MarkDto read(Long id);
+    Optional<Mark> read(Long id);
 
     /**
      * Delete mark.
      *
-     * @param markDto mark
+     * @param mark
      */
-    void delete(MarkDto markDto);
+    void delete(Mark mark);
 
     /**
      * Return all marks from note.
      *
-     * @param noteDto note
+     * @param note note
      * @return list of notes
      */
-    List<MarkDto> getAllByNote(NoteDto noteDto);
+    List<Mark> getAllByNote(Note note);
 
     /**
      * Return all by user.
      *
-     * @param userDto user
+     * @param user user
      * @return list of notes
      */
-    List<MarkDto> getAllMarkByUser(UserDto userDto);
+    List<Mark> getAllMarkByUser(User user);
 }

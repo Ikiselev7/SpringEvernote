@@ -1,6 +1,5 @@
 package com.epam.controllers.ControllerModels;
 
-import com.epam.models.NoteBookDto;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

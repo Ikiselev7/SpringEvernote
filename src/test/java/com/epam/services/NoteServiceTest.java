@@ -1,9 +1,9 @@
 package com.epam.services;
 
-import com.epam.dao.impl.NoteDaoImpl;
-import com.epam.models.MarkDto;
-import com.epam.models.NoteBookDto;
-import com.epam.models.NoteDto;
+import com.epam.dao.entity.Mark;
+import com.epam.dao.entity.Note;
+import com.epam.dao.entity.NoteBook;
+import com.epam.dao.jparepositories.NoteJpaRepository;
 import com.epam.services.impl.NoteServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,54 +16,54 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class NoteServiceTest {
     @Mock
-    private NoteDto mokedNote;
+    private Note mokedNote;
 
     @Mock
-    private NoteBookDto mokedNoteBook;
+    private NoteBook mokedNoteBook;
 
     @Mock
-    private MarkDto mokedMark;
+    private Mark mokedMark;
 
     @InjectMocks
     private NoteServiceImpl noteService;
 
     @Mock
-    private NoteDaoImpl noteDaoDto;
+    private NoteJpaRepository noteJpaRepository;
 
     @Test
     public void save() throws Exception {
         noteService.save(mokedNote);
-        verify(noteDaoDto).save(mokedNote);
+        verify(noteJpaRepository).save(mokedNote);
     }
 
     @Test
     public void update() throws Exception {
         noteService.update(mokedNote);
-        verify(noteDaoDto).save(mokedNote);
+        verify(noteJpaRepository).save(mokedNote);
     }
 
     @Test
     public void read() throws Exception {
         noteService.read(32L);
-        verify(noteDaoDto).findById(32L);
+        verify(noteJpaRepository).findById(32L);
     }
 
     @Test
     public void delete() throws Exception {
         noteService.delete(mokedNote);
-        verify(noteDaoDto).delete(mokedNote);
+        verify(noteJpaRepository).delete(mokedNote);
     }
 
     @Test
     public void getAllByNoteBook() throws Exception {
         noteService.getAllByNoteBook(mokedNoteBook);
-        verify(noteDaoDto).findAllByNoteBookId(mokedNoteBook);
+        verify(noteJpaRepository).findAllByNoteBook(mokedNoteBook);
     }
 
     @Test
     public void getByMark() throws Exception {
         noteService.getByMark(mokedMark);
-        verify(noteDaoDto).findAllByMarkId(mokedMark);
+        verify(noteJpaRepository).findAllByMark(mokedMark);
     }
 
 }

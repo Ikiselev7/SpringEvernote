@@ -1,43 +1,50 @@
 package com.epam.services.impl;
 
-import com.epam.dao.NoteBookDao;
-import com.epam.models.NoteBookDto;
-import com.epam.models.UserDto;
+import com.epam.dao.entity.NoteBook;
+import com.epam.dao.entity.User;
+import com.epam.dao.jparepositories.NoteBookJpaRepository;
+import com.epam.logging.TimeLogging;
 import com.epam.services.NoteBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service
 public class NoteBookServiceImpl implements NoteBookService {
     @Autowired
-    private NoteBookDao noteBookDao;
+    private NoteBookJpaRepository noteBookJpaRepository;
 
     @Override
-    public NoteBookDto save(NoteBookDto noteBookDto) {
-        return noteBookDao.save(noteBookDto);
+    @TimeLogging
+    public NoteBook save(NoteBook noteBook) {
+        return noteBookJpaRepository.save(noteBook);
     }
 
     @Override
-    public NoteBookDto update(NoteBookDto noteBookDto) {
-        return noteBookDao.save(noteBookDto);
+    @TimeLogging
+    public NoteBook update(NoteBook noteBook) {
+        return noteBookJpaRepository.save(noteBook);
     }
 
     @Override
-    public NoteBookDto read(Long id) {
-        return noteBookDao.findById(id);
+    @TimeLogging
+    public Optional<NoteBook> read(Long id) {
+        return noteBookJpaRepository.findById(id);
     }
 
     @Override
-    public void delete(NoteBookDto noteBookDto) {
-        noteBookDao.delete(noteBookDto);
+    @TimeLogging
+    public void delete(NoteBook noteBook) {
+        noteBookJpaRepository.delete(noteBook);
     }
 
     @Override
-    public List<NoteBookDto> getAllByUser(UserDto userDto) {
-        return noteBookDao.findAllByUser(userDto);
+    @TimeLogging
+    public List<NoteBook> getAllByUser(User user) {
+        return noteBookJpaRepository.findAllByUser(user);
     }
 }
