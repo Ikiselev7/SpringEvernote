@@ -19,7 +19,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.epam.dao")
+@EnableJpaRepositories(basePackageClasses = MarkJpaRepository.class)
 @ComponentScan(basePackageClasses = {MarkJpaRepository.class,
         MarkServiceImpl.class})
 @PropertySource("persistences.yaml")
