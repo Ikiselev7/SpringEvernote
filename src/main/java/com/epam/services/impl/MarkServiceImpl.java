@@ -1,49 +1,50 @@
 package com.epam.services.impl;
 
-import com.epam.dao.MarkDao;
-import com.epam.models.MarkDto;
-import com.epam.models.NoteDto;
-import com.epam.models.UserDto;
+import com.epam.dao.entity.Mark;
+import com.epam.dao.entity.Note;
+import com.epam.dao.entity.User;
+import com.epam.dao.jparepositories.MarkJpaRepository;
 import com.epam.services.MarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service
 public class MarkServiceImpl implements MarkService {
     @Autowired
-    private MarkDao markDao;
+    private MarkJpaRepository markJpaRepository;
 
     @Override
-    public MarkDto save(MarkDto markDto) {
-        return markDao.save(markDto);
+    public Mark save(Mark mark) {
+        return markJpaRepository.save(mark);
     }
 
     @Override
-    public MarkDto update(MarkDto markDto) {
-        return markDao.save(markDto);
+    public Mark update(Mark mark) {
+        return markJpaRepository.save(mark);
     }
 
     @Override
-    public MarkDto read(Long id) {
-        return markDao.findById(id);
+    public Optional<Mark> read(Long id) {
+        return markJpaRepository.findById(id);
     }
 
     @Override
-    public void delete(MarkDto markDto) {
-        markDao.delete(markDto);
+    public void delete(Mark mark) {
+        markJpaRepository.delete(mark);
     }
 
     @Override
-    public List<MarkDto> getAllByNote(NoteDto noteDto) {
-        return markDao.findAllByNote(noteDto);
+    public List<Mark> getAllByNote(Note note) {
+        return markJpaRepository.findAllByNote(note);
     }
 
     @Override
-    public List<MarkDto> getAllMarkByUser(UserDto userDto) {
-        return markDao.findAllByUserId(userDto);
+    public List<Mark> getAllMarkByUser(User user) {
+        return markJpaRepository.findAllByUser(user);
     }
 }

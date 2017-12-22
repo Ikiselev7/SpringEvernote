@@ -2,8 +2,8 @@ package com.epam.controllers;
 
 import com.epam.controllers.ControllerModels.NoteBookModel;
 import com.epam.controllers.controllerMap.NoteBookTransformer;
-import com.epam.models.NoteBookDto;
-import com.epam.models.UserDto;
+import com.epam.dao.entity.NoteBook;
+import com.epam.dao.entity.User;
 import com.epam.services.NoteBookService;
 import com.epam.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,23 +40,23 @@ public class NoteBookController {
 
     @GetMapping(value = "/notebook/{id}")
     public ResponseEntity<NoteBookModel> getNotebookById(@PathVariable("id") Long id) {
-        NoteBookDto notebookDto = notebookService.read(id);
-        if (notebookDto == null) {
-            throw new IllegalArgumentException("Bad notebook id " + id);
-        }
+        NoteBook notebookDto = notebookService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad notebook id " + id)
+                );
         NoteBookModel notebookModel = notebookTransformer.unbind(notebookDto);
         return new ResponseEntity<>(notebookModel, HttpStatus.OK);
     }
 
     @GetMapping(value = "/user/{id}/notebooks")
     public ResponseEntity<List<NoteBookModel>> getNotesbooksByUser(@PathVariable("id") Long id) {
-        UserDto userDto = userService.read(id);
-        if (userDto == null) {
-            throw new IllegalArgumentException("Bad user id " + id);
-        }
+        User userDto = userService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad user id " + id)
+                );
         List<NoteBookModel> notebookModels = new ArrayList<>();
-        for (NoteBookDto notebookDto : notebookService.getAllByUser(userDto)) {
-            notebookModels.add(notebookTransformer.unbind(notebookDto));
+        for (NoteBook noteBook : notebookService.getAllByUser(userDto)) {
+            notebookModels.add(notebookTransformer.unbind(noteBook));
         }
         return new ResponseEntity<>(notebookModels, HttpStatus.OK);
     }
@@ -64,24 +64,24 @@ public class NoteBookController {
     @PutMapping(value = "/notebook/{id}")
     public ResponseEntity<NoteBookModel> updateNoteBook(@PathVariable("id") Long id,
                                                         @RequestBody NoteBookModel notebookModel) {
-        NoteBookDto notebookDto = notebookService.read(id);
-        if (notebookDto == null) {
-            throw new IllegalArgumentException("Bad notebook id " + id);
-        }
-        notebookDto = notebookTransformer.bind(notebookModel);
+        NoteBook noteBook = notebookService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad notebook id " + id)
+                );
+        noteBook = notebookTransformer.bind(notebookModel);
         return new ResponseEntity<>(notebookTransformer
                 .unbind(notebookService
-                        .update(notebookDto)),
+                        .update(noteBook)),
                 HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/notebook/{id}")
     public void deleteNoteBookById(@PathVariable("id") Long id) {
-        NoteBookDto notebookDto = notebookService.read(id);
-        if (notebookDto == null) {
-            throw new IllegalArgumentException("Bad mark id " + id);
-        }
-        notebookService.delete(notebookDto);
+        NoteBook noteBook = notebookService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad mark id " + id)
+                );
+        notebookService.delete(noteBook);
     }
 
 }

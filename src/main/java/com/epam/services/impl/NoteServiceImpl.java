@@ -1,49 +1,50 @@
 package com.epam.services.impl;
 
-import com.epam.dao.NoteDao;
-import com.epam.models.MarkDto;
-import com.epam.models.NoteBookDto;
-import com.epam.models.NoteDto;
+import com.epam.dao.entity.Mark;
+import com.epam.dao.entity.Note;
+import com.epam.dao.entity.NoteBook;
+import com.epam.dao.jparepositories.NoteJpaRepository;
 import com.epam.services.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service
 public class NoteServiceImpl implements NoteService {
     @Autowired
-    private NoteDao noteDao;
+    private NoteJpaRepository noteJpaRepository;
 
     @Override
-    public NoteDto save(NoteDto noteDto) {
-        return noteDao.save(noteDto);
+    public Note save(Note note) {
+        return noteJpaRepository.save(note);
     }
 
     @Override
-    public NoteDto update(NoteDto noteDto) {
-        return noteDao.save(noteDto);
+    public Note update(Note note) {
+        return noteJpaRepository.save(note);
     }
 
     @Override
-    public NoteDto read(Long id) {
-        return noteDao.findById(id);
+    public Optional<Note> read(Long id) {
+        return noteJpaRepository.findById(id);
     }
 
     @Override
-    public void delete(NoteDto noteDto) {
-        noteDao.delete(noteDto);
+    public void delete(Note note) {
+        noteJpaRepository.delete(note);
     }
 
     @Override
-    public List<NoteDto> getAllByNoteBook(NoteBookDto noteBookDto) {
-        return noteDao.findAllByNoteBookId(noteBookDto);
+    public List<Note> getAllByNoteBook(NoteBook noteBook) {
+        return noteJpaRepository.findAllByNoteBook(noteBook);
     }
 
     @Override
-    public List<NoteDto> getByMark(MarkDto markDto) {
-        return noteDao.findAllByMarkId(markDto);
+    public List<Note> getByMark(Mark mark) {
+        return noteJpaRepository.findAllByMark(mark);
     }
 }

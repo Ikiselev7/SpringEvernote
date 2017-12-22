@@ -1,13 +1,10 @@
 package com.epam.config;
 
-import com.epam.dao.impl.MarkDaoImpl;
 import com.epam.dao.jparepositories.MarkJpaRepository;
-import com.epam.dao.mappers.MarkMapper;
 import com.epam.services.impl.MarkServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -16,17 +13,14 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(basePackageClasses = MarkJpaRepository.class)
-@ComponentScan(basePackageClasses = {MarkDaoImpl.class,
-        MarkJpaRepository.class,
-        MarkServiceImpl.class,
-        MarkMapper.class})
+@ComponentScan(basePackageClasses = {MarkJpaRepository.class,
+        MarkServiceImpl.class})
 @EnableTransactionManagement
 public class AppConfig {
 

@@ -2,9 +2,9 @@ package com.epam.controllers;
 
 import com.epam.controllers.ControllerModels.MarkModel;
 import com.epam.controllers.controllerMap.MarkTransformer;
-import com.epam.models.MarkDto;
-import com.epam.models.NoteDto;
-import com.epam.models.UserDto;
+import com.epam.dao.entity.Mark;
+import com.epam.dao.entity.Note;
+import com.epam.dao.entity.User;
 import com.epam.services.MarkService;
 import com.epam.services.NoteService;
 import com.epam.services.UserService;
@@ -44,36 +44,36 @@ public class MarkController {
 
     @GetMapping(value = "/mark/{id}")
     public ResponseEntity<MarkModel> getMarkById(@PathVariable("id") Long id) {
-        MarkDto markDto = markService.read(id);
-        if (markDto == null) {
-            throw new IllegalArgumentException("Bad mark id " + id);
-        }
-        MarkModel markModel = markTransformer.unbind(markDto);
+        Mark mark = markService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad mark id " + id)
+                );
+        MarkModel markModel = markTransformer.unbind(mark);
         return new ResponseEntity<>(markModel, HttpStatus.OK);
     }
 
     @GetMapping(value = "/user/{id}/marks")
     public ResponseEntity<List<MarkModel>> getMarksByUser(@PathVariable("id") Long id) {
-        UserDto userDto = userService.read(id);
-        if (userDto == null) {
-            throw new IllegalArgumentException("Bad user id " + id);
-        }
+        User user = userService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad user id " + id)
+                );
         List<MarkModel> markModels = new ArrayList<>();
-        for (MarkDto markDto : markService.getAllMarkByUser(userDto)) {
-            markModels.add(markTransformer.unbind(markDto));
+        for (Mark mark : markService.getAllMarkByUser(user)) {
+            markModels.add(markTransformer.unbind(mark));
         }
         return new ResponseEntity<>(markModels, HttpStatus.OK);
     }
 
     @GetMapping(value = "/note/{id}/marks")
     public ResponseEntity<List<MarkModel>> getMarksByNote(@PathVariable("id") Long id) {
-        NoteDto noteDto = noteService.read(id);
-        if (noteDto == null) {
-            throw new IllegalArgumentException("Bad note id " + id);
-        }
+        Note noteDto = noteService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad note id " + id)
+                );
         List<MarkModel> markModels = new ArrayList<>();
-        for (MarkDto markDto : markService.getAllByNote(noteDto)) {
-            markModels.add(markTransformer.unbind(markDto));
+        for (Mark mark : markService.getAllByNote(noteDto)) {
+            markModels.add(markTransformer.unbind(mark));
         }
         return new ResponseEntity<>(markModels, HttpStatus.OK);
     }
@@ -81,24 +81,23 @@ public class MarkController {
     @PutMapping(value = "/mark/{id}")
     public ResponseEntity<MarkModel> updateMark(@PathVariable("id") Long id,
                                                 @RequestBody MarkModel markModel) {
-        MarkDto markDto = markService.read(id);
-        if (markDto == null) {
-            throw new IllegalArgumentException("Bad mark id " + id);
-        }
-        markDto = markTransformer.bind(markModel);
+        Mark mark = markService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad mark id " + id)
+                );
+        mark = markTransformer.bind(markModel);
         return new ResponseEntity<>(markTransformer
-                .unbind(markService
-                        .update(markDto)),
+                .unbind(markService.update(mark)),
                 HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/mark/{id}")
     public void deleteMarkById(@PathVariable("id") Long id) {
-        MarkDto markDto = markService.read(id);
-        if (markDto == null) {
-            throw new IllegalArgumentException("Bad mark id " + id);
-        }
-        markService.delete(markDto);
+        Mark mark = markService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad mark id " + id)
+                );
+        markService.delete(mark);
     }
 
 }
