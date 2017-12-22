@@ -31,7 +31,6 @@ dependencies {
     compile 'org.apache.maven.plugins:maven-war-plugin:3.2.0'
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
-
     compile group: 'org.springframework', name: 'spring-aop', version: '4.3.12.RELEASE'
     compile group: 'org.springframework', name: 'spring-aspects', version: '4.3.12.RELEASE'
     compile group: 'org.aspectj', name: 'aspectjrt', version: '1.8.10'
