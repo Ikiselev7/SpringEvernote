@@ -1,7 +1,7 @@
 package com.epam.controllers;
 
 import com.epam.controllers.controllerMap.MarkTransformer;
-import com.epam.models.MarkDto;
+import com.epam.dao.entity.Mark;
 import com.epam.services.MarkService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -13,6 +13,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.Optional;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
@@ -27,17 +29,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(MockitoJUnitRunner.class)
 public class MarkControllerTest {
+    private static final Long SIMPLE_MARK_ID = 1L;
     private ObjectMapper mapper = new ObjectMapper();
-
     private MockMvc mockMvc;
-
-    private MarkDto markDto;
-
+    private Mark mark;
     @Mock
     private MarkTransformer userTransformer;
-
-    private static final Long SIMPLE_MARK_ID = 1L;
-
     @Mock
     private MarkService markService;
 
@@ -47,27 +44,27 @@ public class MarkControllerTest {
     @Before
     public void setUp() throws Exception {
         this.mockMvc = MockMvcBuilders.standaloneSetup(markController).build();
-        markDto = new MarkDto();
-        markDto.setId(SIMPLE_MARK_ID);
-        markDto.setName("Mark");
+        mark = new Mark();
+        mark.setId(SIMPLE_MARK_ID);
+        mark.setName("Mark");
     }
 
     @Test
     public void saveMark() throws Exception {
-        markDto.setId(SIMPLE_MARK_ID);
-        when(markService.save(any(MarkDto.class))).thenReturn(markDto);
+        mark.setId(SIMPLE_MARK_ID);
+        when(markService.save(any(Mark.class))).thenReturn(mark);
 
         mockMvc.perform(post("/mark")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(markDto)))
+                .content(mapper.writeValueAsString(mark)))
                 .andExpect(status().isCreated());
 
-        verify(markService).save(any(MarkDto.class));
+        verify(markService).save(any(Mark.class));
     }
 
     @Test
     public void getMarkById() throws Exception {
-        when(markService.read(anyLong())).thenReturn(markDto);
+        when(markService.read(anyLong())).thenReturn(Optional.of(mark));
 
         mockMvc.perform(get("/mark/" + SIMPLE_MARK_ID))
                 .andExpect(status().isOk());
@@ -77,13 +74,13 @@ public class MarkControllerTest {
 
     @Test
     public void deleteMarkById() throws Exception {
-        when(markService.read(SIMPLE_MARK_ID)).thenReturn(markDto);
-        doNothing().when(markService).delete(markDto);
+        when(markService.read(SIMPLE_MARK_ID)).thenReturn(Optional.of(mark));
+        doNothing().when(markService).delete(mark);
 
         mockMvc.perform(delete("/mark/" + SIMPLE_MARK_ID))
                 .andExpect(status().isOk());
 
-        verify(markService).delete(any(MarkDto.class));
+        verify(markService).delete(any(Mark.class));
     }
 
 }

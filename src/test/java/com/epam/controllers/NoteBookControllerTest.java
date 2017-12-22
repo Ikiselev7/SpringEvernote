@@ -1,7 +1,7 @@
 package com.epam.controllers;
 
 import com.epam.controllers.controllerMap.NoteBookTransformer;
-import com.epam.models.NoteBookDto;
+import com.epam.dao.entity.NoteBook;
 import com.epam.services.NoteBookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -13,6 +13,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.Optional;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
@@ -27,17 +29,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(MockitoJUnitRunner.class)
 public class NoteBookControllerTest {
+    private static final Long SIMPLE_NOTEBOOK_ID = 1L;
     private ObjectMapper mapper = new ObjectMapper();
-
     private MockMvc mockMvc;
-
-    private NoteBookDto notebookDto;
-
+    private NoteBook notebook;
     @Mock
     private NoteBookTransformer notebookTransformer;
-
-    private static final Long SIMPLE_NOTEBOOK_ID = 1L;
-
     @Mock
     private NoteBookService notebookService;
 
@@ -47,27 +44,27 @@ public class NoteBookControllerTest {
     @Before
     public void setUp() throws Exception {
         this.mockMvc = MockMvcBuilders.standaloneSetup(notebookController).build();
-        notebookDto = new NoteBookDto();
-        notebookDto.setId(SIMPLE_NOTEBOOK_ID);
-        notebookDto.setName("Notebook");
+        notebook = new NoteBook();
+        notebook.setId(SIMPLE_NOTEBOOK_ID);
+        notebook.setName("Notebook");
     }
 
     @Test
     public void saveNoteBook() throws Exception {
-        notebookDto.setId(SIMPLE_NOTEBOOK_ID);
-        when(notebookService.save(any(NoteBookDto.class))).thenReturn(notebookDto);
+        notebook.setId(SIMPLE_NOTEBOOK_ID);
+        when(notebookService.save(any(NoteBook.class))).thenReturn(notebook);
 
         mockMvc.perform(post("/notebook")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(notebookDto)))
+                .content(mapper.writeValueAsString(notebook)))
                 .andExpect(status().isCreated());
 
-        verify(notebookService).save(any(NoteBookDto.class));
+        verify(notebookService).save(any(NoteBook.class));
     }
 
     @Test
     public void getNotebookById() throws Exception {
-        when(notebookService.read(anyLong())).thenReturn(notebookDto);
+        when(notebookService.read(anyLong())).thenReturn(Optional.of(notebook));
 
         mockMvc.perform(get("/notebook/" + SIMPLE_NOTEBOOK_ID))
                 .andExpect(status().isOk());
@@ -77,13 +74,13 @@ public class NoteBookControllerTest {
 
     @Test
     public void deleteNoteBookById() throws Exception {
-        when(notebookService.read(SIMPLE_NOTEBOOK_ID)).thenReturn(notebookDto);
-        doNothing().when(notebookService).delete(notebookDto);
+        when(notebookService.read(SIMPLE_NOTEBOOK_ID)).thenReturn(Optional.of(notebook));
+        doNothing().when(notebookService).delete(notebook);
 
         mockMvc.perform(delete("/notebook/" + SIMPLE_NOTEBOOK_ID))
                 .andExpect(status().isOk());
 
-        verify(notebookService).delete(any(NoteBookDto.class));
+        verify(notebookService).delete(any(NoteBook.class));
     }
 
 }
