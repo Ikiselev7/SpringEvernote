@@ -23,7 +23,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -74,15 +73,6 @@ public class NoteBookControllerTest {
                 .andExpect(status().isOk());
 
         verify(notebookService).read(eq(SIMPLE_NOTEBOOK_ID));
-    }
-
-    @Test
-    public void getNotesbooksByUser() throws Exception {
-
-    }
-
-    @Test
-    public void updateNoteBook() throws Exception {
     }
 
     @Test

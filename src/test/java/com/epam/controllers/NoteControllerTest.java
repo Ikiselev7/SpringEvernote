@@ -1,7 +1,6 @@
 package com.epam.controllers;
 
 import com.epam.controllers.controllerMap.NoteTransformer;
-import com.epam.models.NoteBookDto;
 import com.epam.models.NoteDto;
 import com.epam.services.NoteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,18 +74,6 @@ public class NoteControllerTest {
                 .andExpect(status().isOk());
 
         verify(noteService).read(eq(SIMPLE_NOTE_ID));
-    }
-
-    @Test
-    public void getNotesByUser() throws Exception {
-    }
-
-    @Test
-    public void getNotesByNotebook() throws Exception {
-    }
-
-    @Test
-    public void updateNote() throws Exception {
     }
 
     @Test

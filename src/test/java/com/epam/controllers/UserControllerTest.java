@@ -23,7 +23,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -76,15 +75,6 @@ public class UserControllerTest {
                 .andExpect(status().isOk());
 
         verify(userService).read(eq(SIMPLE_USER_ID));
-    }
-
-    @Test
-    public void getUsers() throws Exception {
-
-    }
-
-    @Test
-    public void updateUser() throws Exception {
     }
 
     @Test

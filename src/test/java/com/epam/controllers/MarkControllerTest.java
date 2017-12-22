@@ -2,7 +2,6 @@ package com.epam.controllers;
 
 import com.epam.controllers.controllerMap.MarkTransformer;
 import com.epam.models.MarkDto;
-import com.epam.models.NoteBookDto;
 import com.epam.services.MarkService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -24,7 +23,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -46,6 +44,14 @@ public class MarkControllerTest {
     @InjectMocks
     private MarkController markController;
 
+    @Before
+    public void setUp() throws Exception {
+        this.mockMvc = MockMvcBuilders.standaloneSetup(markController).build();
+        markDto = new MarkDto();
+        markDto.setId(SIMPLE_MARK_ID);
+        markDto.setName("Mark");
+    }
+
     @Test
     public void saveMark() throws Exception {
         markDto.setId(SIMPLE_MARK_ID);
@@ -59,14 +65,6 @@ public class MarkControllerTest {
         verify(markService).save(any(MarkDto.class));
     }
 
-    @Before
-    public void setUp() throws Exception {
-        this.mockMvc = MockMvcBuilders.standaloneSetup(markController).build();
-        markDto = new MarkDto();
-        markDto.setId(SIMPLE_MARK_ID);
-        markDto.setName("Mark");
-    }
-
     @Test
     public void getMarkById() throws Exception {
         when(markService.read(anyLong())).thenReturn(markDto);
@@ -75,18 +73,6 @@ public class MarkControllerTest {
                 .andExpect(status().isOk());
 
         verify(markService).read(eq(SIMPLE_MARK_ID));
-    }
-
-    @Test
-    public void getMarksByUser() throws Exception {
-    }
-
-    @Test
-    public void getMarksByNote() throws Exception {
-    }
-
-    @Test
-    public void updateMark() throws Exception {
     }
 
     @Test
