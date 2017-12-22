@@ -2,6 +2,7 @@ package com.epam;
 
 import com.epam.dao.jparepositories.MarkJpaRepository;
 import com.epam.services.impl.MarkServiceImpl;
+import com.epam.util.TestEntityBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,8 +22,9 @@ import javax.sql.DataSource;
 @Configuration
 @EnableJpaRepositories(basePackageClasses = MarkJpaRepository.class)
 @ComponentScan(basePackageClasses = {MarkJpaRepository.class,
-        MarkServiceImpl.class})
-@PropertySource("persistences.yaml")
+        MarkServiceImpl.class,
+        TestEntityBuilder.class
+})
 @EnableTransactionManagement
 public class TestJpaConfig {
 
