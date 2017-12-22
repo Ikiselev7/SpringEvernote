@@ -1,11 +1,7 @@
 package com.epam.config;
 
 import com.epam.controllers.MarkController;
-import com.epam.controllers.controllerMap.MarkTransformer;
-import com.epam.dao.impl.MarkDaoImpl;
-import com.epam.dao.jparepositories.MarkJpaRepository;
-import com.epam.dao.mappers.MarkMapper;
-import com.epam.services.impl.MarkServiceImpl;
+import com.epam.controllers.controllerMap.MarkTransformerImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackageClasses = {
-        MarkTransformer.class,
+        MarkTransformerImpl.class,
         MarkController.class})
 @EnableSwagger2
 @Import({AppConfig.class})

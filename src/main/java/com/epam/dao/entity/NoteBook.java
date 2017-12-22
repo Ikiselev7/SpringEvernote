@@ -35,7 +35,7 @@ public class NoteBook {
     @JoinColumn(name = "id_user", referencedColumnName = "id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "noteBook", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "noteBook", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Note> notes = new HashSet<>();
 
 }

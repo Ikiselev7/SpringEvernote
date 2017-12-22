@@ -2,12 +2,14 @@ package com.epam.controllers;
 
 import com.epam.controllers.ControllerModels.NoteModel;
 import com.epam.controllers.controllerMap.NoteTransformer;
-import com.epam.models.MarkDto;
-import com.epam.models.NoteBookDto;
-import com.epam.models.NoteDto;
+import com.epam.dao.entity.Mark;
+import com.epam.dao.entity.Note;
+import com.epam.dao.entity.NoteBook;
+import com.epam.dao.entity.User;
 import com.epam.services.MarkService;
 import com.epam.services.NoteBookService;
 import com.epam.services.NoteService;
+import com.epam.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,36 +47,36 @@ public class NoteController {
 
     @GetMapping(value = "/note/{id}")
     public ResponseEntity<NoteModel> getNoteById(@PathVariable("id") Long id) {
-        NoteDto noteDto = noteService.read(id);
-        if (noteDto == null) {
-            throw new IllegalArgumentException("Bad note id " + id);
-        }
-        NoteModel noteModel = noteTransformer.unbind(noteDto);
+        Note note = noteService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad note id " + id)
+                );
+        NoteModel noteModel = noteTransformer.unbind(note);
         return new ResponseEntity<>(noteModel, HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/mark/{id}/notes")
-    public ResponseEntity<List<NoteModel>> getNotesByUser(@PathVariable("id") Long id) {
-        MarkDto markDto = markService.read(id);
-        if (markDto == null) {
-            throw new IllegalArgumentException("Bad mark id " + id);
-        }
-        List<NoteModel> noteModels = new ArrayList<>();
-        for (NoteDto noteDto : noteService.getByMark(markDto)) {
-            noteModels.add(noteTransformer.unbind(noteDto));
-        }
-        return new ResponseEntity<>(noteModels, HttpStatus.OK);
     }
 
     @GetMapping(value = "/notebook/{id}/notes")
     public ResponseEntity<List<NoteModel>> getNotesByNotebook(@PathVariable("id") Long id) {
-        NoteBookDto notebookDto = notebookService.read(id);
-        if (notebookDto == null) {
-            throw new IllegalArgumentException("Bad notebook id " + id);
-        }
+        NoteBook noteBook = notebookService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad notebook id " + id)
+                );
         List<NoteModel> noteModels = new ArrayList<>();
-        for (NoteDto noteDto : noteService.getAllByNoteBook(notebookDto)) {
-            noteModels.add(noteTransformer.unbind(noteDto));
+        for (Note note : noteService.getAllByNoteBook(noteBook)) {
+            noteModels.add(noteTransformer.unbind(note));
+        }
+        return new ResponseEntity<>(noteModels, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/mark/{id}/notes")
+    public ResponseEntity<List<NoteModel>> getNotesByMark(@PathVariable("id") Long id) {
+        Mark mark = markService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad mark id " + id)
+                );
+        List<NoteModel> noteModels = new ArrayList<>();
+        for (Note note : noteService.getByMark(mark)) {
+            noteModels.add(noteTransformer.unbind(note));
         }
         return new ResponseEntity<>(noteModels, HttpStatus.OK);
     }
@@ -82,23 +84,23 @@ public class NoteController {
     @PutMapping(value = "/note/{id}")
     public ResponseEntity<NoteModel> updateNote(@PathVariable("id") Long id,
                                                 @RequestBody NoteModel noteModel) {
-        NoteDto noteDto = noteService.read(id);
-        if (noteDto == null) {
-            throw new IllegalArgumentException("Bad note id " + id);
-        }
-        noteDto = noteTransformer.bind(noteModel);
+        Note note = noteService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad note id " + id)
+                );
+        note = noteTransformer.bind(noteModel);
         return new ResponseEntity<>(noteTransformer
                 .unbind(noteService
-                        .update(noteDto)),
+                        .update(note)),
                 HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/note/{id}")
     public void deleteNoteById(@PathVariable("id") Long id) {
-        NoteDto noteDto = noteService.read(id);
-        if (noteDto == null) {
-            throw new IllegalArgumentException("Bad note id " + id);
-        }
-        noteService.delete(noteDto);
+        Note note = noteService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad note id " + id)
+                );
+        noteService.delete(note);
     }
 }

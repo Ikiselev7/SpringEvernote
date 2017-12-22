@@ -2,7 +2,7 @@ package com.epam.controllers;
 
 import com.epam.controllers.ControllerModels.UserModel;
 import com.epam.controllers.controllerMap.UserTransformer;
-import com.epam.models.UserDto;
+import com.epam.dao.entity.User;
 import com.epam.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,19 +36,19 @@ public class UserController {
 
     @GetMapping(value = "/user/{id}")
     public ResponseEntity<UserModel> getUserById(@PathVariable("id") Long id) {
-        UserDto userDto = userService.read(id);
-        if (userDto == null) {
-            throw new IllegalArgumentException("Bad user id " + id);
-        }
-        UserModel userModel = userTransformer.unbind(userDto);
+        User user = userService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad user id " + id)
+                );
+        UserModel userModel = userTransformer.unbind(user);
         return new ResponseEntity<>(userModel, HttpStatus.OK);
     }
 
     @GetMapping(value = "/users")
     public ResponseEntity<List<UserModel>> getUsers() {
         List<UserModel> userModels = new ArrayList<>();
-        for (UserDto userDto : userService.getAll()) {
-            userModels.add(userTransformer.unbind(userDto));
+        for (User user : userService.getAll()) {
+            userModels.add(userTransformer.unbind(user));
         }
         return new ResponseEntity<>(userModels, HttpStatus.OK);
     }
@@ -56,10 +56,10 @@ public class UserController {
     @PutMapping(value = "/user/{id}")
     public ResponseEntity<UserModel> updateUser(@PathVariable("id") Long id,
                                                 @RequestBody UserModel userModel) {
-        UserDto userDto = userService.read(id);
-        if (userDto == null) {
-            throw new IllegalArgumentException("Bad user id " + id);
-        }
+        User userDto = userService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad user id " + id)
+                );
         userDto = userTransformer.bind(userModel);
         return new ResponseEntity<>(userTransformer
                 .unbind(userService
@@ -69,10 +69,10 @@ public class UserController {
 
     @DeleteMapping(value = "/user/{id}")
     public void deleteUserById(@PathVariable("id") Long id) {
-        UserDto userDto = userService.read(id);
-        if (userDto == null) {
-            throw new IllegalArgumentException("Bad user id " + id);
-        }
+        User userDto = userService.read(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Bad user id " + id)
+                );
         userService.delete(userDto);
     }
 
