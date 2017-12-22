@@ -1,8 +1,8 @@
 package com.epam.services;
 
-import com.epam.dao.impl.NoteBookDaoImpl;
-import com.epam.models.NoteBookDto;
-import com.epam.models.UserDto;
+import com.epam.dao.entity.NoteBook;
+import com.epam.dao.entity.User;
+import com.epam.dao.jparepositories.NoteBookJpaRepository;
 import com.epam.services.impl.NoteBookServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,44 +15,44 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class NoteBookServiceTest {
     @Mock
-    private NoteBookDto mokedNoteBook;
+    private NoteBook mokedNoteBook;
 
     @Mock
-    private UserDto mokedUser;
+    private User mokedUser;
 
     @InjectMocks
     private NoteBookServiceImpl noteBookService;
 
     @Mock
-    private NoteBookDaoImpl noteBookDaoDto;
+    private NoteBookJpaRepository noteBookJpaRepository;
 
     @Test
     public void save() throws Exception {
         noteBookService.save(mokedNoteBook);
-        verify(noteBookDaoDto).save(mokedNoteBook);
+        verify(noteBookJpaRepository).save(mokedNoteBook);
     }
 
     @Test
     public void update() throws Exception {
         noteBookService.update(mokedNoteBook);
-        verify(noteBookDaoDto).save(mokedNoteBook);
+        verify(noteBookJpaRepository).save(mokedNoteBook);
     }
 
     @Test
     public void read() throws Exception {
         noteBookService.read(241L);
-        verify(noteBookDaoDto).findById(241L);
+        verify(noteBookJpaRepository).findById(241L);
     }
 
     @Test
     public void delete() throws Exception {
         noteBookService.delete(mokedNoteBook);
-        verify(noteBookDaoDto).delete(mokedNoteBook);
+        verify(noteBookJpaRepository).delete(mokedNoteBook);
     }
 
     @Test
     public void getAllByUser() throws Exception {
         noteBookService.getAllByUser(mokedUser);
-        verify(noteBookDaoDto).findAllByUser(mokedUser);
+        verify(noteBookJpaRepository).findAllByUser(mokedUser);
     }
 }
