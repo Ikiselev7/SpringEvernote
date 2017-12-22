@@ -1,10 +1,12 @@
 package com.epam.config;
 
 import com.epam.dao.jparepositories.MarkJpaRepository;
+import com.epam.logging.AspectForLogging;
 import com.epam.services.impl.MarkServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -20,8 +22,11 @@ import javax.sql.DataSource;
 @Configuration
 @EnableJpaRepositories(basePackageClasses = MarkJpaRepository.class)
 @ComponentScan(basePackageClasses = {MarkJpaRepository.class,
-        MarkServiceImpl.class})
+        MarkServiceImpl.class,
+        AspectForLogging.class
+})
 @EnableTransactionManagement
+@EnableAspectJAutoProxy
 public class AppConfig {
 
     @Bean
