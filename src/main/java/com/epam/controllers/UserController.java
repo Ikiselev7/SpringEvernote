@@ -32,7 +32,7 @@ public class UserController {
                 .unbind(userService.
                         save(userTransformer
                                 .bind(userModel))),
-                HttpStatus.OK);
+                HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/user/{id}")
