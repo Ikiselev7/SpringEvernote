@@ -40,7 +40,7 @@ public class NoteController {
                 .unbind(noteService.
                         save(noteTransformer
                                 .bind(noteModel))),
-                HttpStatus.OK);
+                HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/note/{id}")

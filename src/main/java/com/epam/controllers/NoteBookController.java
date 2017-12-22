@@ -35,7 +35,7 @@ public class NoteBookController {
                 .unbind(notebookService.
                         save(notebookTransformer
                                 .bind(notebookModel))),
-                HttpStatus.OK);
+                HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/notebook/{id}")

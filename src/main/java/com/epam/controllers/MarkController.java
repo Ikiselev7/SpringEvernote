@@ -39,7 +39,7 @@ public class MarkController {
                 .unbind(markService.
                         save(markTransformer
                                 .bind(markModel))),
-                HttpStatus.OK);
+                HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/mark/{id}")
